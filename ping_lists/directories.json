@@ -1,17 +1,25 @@
-[
-  "https://www.exactseek.com/add.html",
-  "https://www.scrubtheweb.com/addurl.html",
-  "https://www.9sites.net/addurl.php",
-  "https://www.webworldindex.com/add-url.html",
-  "https://www.submitexpress.com/submit.html",
-  "https://www.addme.com/submission.htm",
-  "https://www.incrawler.com/submit-url",
-  "https://www.entireweb.com/free_submission/",
-  "https://www.whatuseek.com/add-url.shtml",
-  "https://www.webdirectory.com/submit/",
-  "https://www.nextagz.com/submit/",
-  "https://www.submitsuite.com/free-submission/",
-  "https://directory.walla.co.il/cgi-bin/dir",
-  "https://www.vilesilencer.com/add-url/",
-  "https://www.freepromotion.com/submit/"
-]
+{
+  "free_directories": [
+    "https://www.exactseek.com/add.html",
+    "https://www.scrubtheweb.com/addurl.html", 
+    "https://www.9sites.net/addurl.php",
+    "https://www.webworldindex.com/add-url.html",
+    "https://www.submitexpress.com/submit.html",
+    "https://www.addme.com/submission.htm",
+    "https://www.incrawler.com/submit-url",
+    "https://www.entireweb.com/free_submission/",
+    "https://www.whatuseek.com/add-url.shtml",
+    "https://www.webdirectory.com/submit/",
+    "https://www.nextagz.com/submit/",
+    "https://www.submitsuite.com/free-submission/",
+    "https://directory.walla.co.il/cgi-bin/dir",
+    "https://www.vilesilencer.com/add-url/",
+    "https://www.freepromotion.com/submit/"
+  ],
+  "web_directories": [
+    "https://www.dmoz-odp.org/public/suggest",
+    "https://www.jayde.com/add_url.html", 
+    "https://www.exorank.com/addurl.php",
+    "https://www.freewebsubmission.com/submit-url/"
+  ]
+}

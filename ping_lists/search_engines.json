@@ -1,7 +1,14 @@
 {
-  "google": "https://www.google.com/ping?sitemap=",
-  "bing": "https://www.bing.com/webmaster/ping.aspx?siteMap=",
-  "yandex": "https://webmaster.yandex.com/ping?sitemap=",
-  "baidu": "https://www.baidu.com/s?wd=",
-  "duckduckgo": "https://duckduckgo.com/ping?sitemap="
+  "primary_engines": {
+    "google": "https://www.google.com/ping?sitemap=",
+    "google_webmaster": "https://www.google.com/webmasters/tools/ping?sitemap=",
+    "bing": "https://www.bing.com/webmaster/ping.aspx?siteMap=",
+    "yandex": "https://webmaster.yandex.com/ping?sitemap=",
+    "yahoo": "https://search.yahooapis.com/SiteExplorerService/V1/submitUrl?appid=",
+    "baidu": "https://www.baidu.com/ping?sitemap=",
+    "ecosia": "https://ecosia.org/ping/sitemap/"
+  },
+  "additional_engines": {
+    "google_sitemap_docs": "https://developers.google.com/static/search/docs/feeds/XML_Sitemaps_Ping_Service.html"
+  }
 }
