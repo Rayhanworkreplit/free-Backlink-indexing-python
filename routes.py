@@ -701,3 +701,13 @@ def test_live_progress():
         logger.error(f"Error loading test live progress page: {str(e)}")
         flash(f"Error loading page: {str(e)}", 'error')
         return redirect(url_for('index'))
+
+@app.route('/real-time-demo')
+def real_time_demo():
+    """Real-time progress demo page"""
+    try:
+        return render_template('real_time_demo.html')
+    except Exception as e:
+        logger.error(f"Error loading real-time demo page: {str(e)}")
+        flash(f"Error loading page: {str(e)}", 'error')
+        return redirect(url_for('index'))

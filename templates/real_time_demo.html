@@ -1,0 +1,422 @@
+{% extends "base.html" %}
+
+{% block title %}Real-Time Progress Demo - Free Ping Indexer Pro{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1>Real-Time Progress Demo</h1>
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                Watch live progress updates as pings are submitted to services in real-time.
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5>Start Real-Time Campaign</h5>
+                </div>
+                <div class="card-body">
+                    <form id="demo-form">
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Test URLs</label>
+                                <textarea class="form-control" rows="3" placeholder="https://example.com&#10;https://httpbin.org/status/200">https://example.com
+https://httpbin.org/status/200</textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Service Categories</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="modern-ping" checked>
+                                    <label class="form-check-label" for="modern-ping">Modern Ping Services</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="seo-tools" checked>
+                                    <label class="form-check-label" for="seo-tools">SEO Tools</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="global-rss">
+                                    <label class="form-check-label" for="global-rss">Global RSS (slower)</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success btn-lg w-100" id="start-btn">
+                            <i class="fas fa-rocket me-2"></i>Start Real-Time Campaign
+                        </button>
+                    </form>
+                    
+                    <div id="status-message" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Live Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <div class="h3 text-success" id="live-success">0</div>
+                        <div class="text-muted">Successful Pings</div>
+                        <hr>
+                        <div class="h3 text-danger" id="live-failed">0</div>
+                        <div class="text-muted">Failed Pings</div>
+                        <hr>
+                        <div class="h3 text-info" id="live-rate">0%</div>
+                        <div class="text-muted">Success Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Progress Container -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div id="progress-display" style="display: none;">
+                <div class="card border-success">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">
+                            <i class="fas fa-broadcast-tower me-2"></i>
+                            <span id="campaign-title">Live Progress</span>
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Main Progress -->
+                        <div class="mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h6 class="mb-0">Overall Progress</h6>
+                                <div>
+                                    <span id="live-percentage" class="badge bg-primary fs-6">0%</span>
+                                    <span id="live-eta" class="badge bg-info fs-6">Calculating...</span>
+                                </div>
+                            </div>
+                            <div class="progress" style="height: 30px;">
+                                <div id="live-progress-bar" 
+                                     class="progress-bar progress-bar-striped progress-bar-animated bg-success" 
+                                     role="progressbar" 
+                                     style="width: 0%" 
+                                     aria-valuenow="0" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100">
+                                    <span class="fw-bold">0%</span>
+                                </div>
+                            </div>
+                            <div class="small text-muted mt-2">
+                                <span id="live-details">Starting campaign...</span>
+                            </div>
+                        </div>
+
+                        <!-- Current Activity -->
+                        <div class="mb-4">
+                            <h6>Current Activity</h6>
+                            <div class="card bg-light">
+                                <div class="card-body py-2">
+                                    <div id="current-activity">
+                                        <i class="fas fa-clock me-2"></i>Initializing...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activity Log -->
+                        <div class="mb-4">
+                            <h6>Recent Activity</h6>
+                            <div id="activity-log" style="max-height: 200px; overflow-y: auto;" class="border rounded p-2 bg-light">
+                                <div class="text-muted">Campaign will start shortly...</div>
+                            </div>
+                        </div>
+
+                        <!-- Control Button -->
+                        <div class="text-center">
+                            <button id="stop-btn" class="btn btn-warning">
+                                <i class="fas fa-stop me-2"></i>Stop Campaign
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentCampaign = null;
+let progressPoller = null;
+let startTime = null;
+let activityLog = [];
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('demo-form').addEventListener('submit', startRealTimeDemo);
+    document.getElementById('stop-btn').addEventListener('click', stopCampaign);
+});
+
+async function startRealTimeDemo(e) {
+    e.preventDefault();
+    
+    const startBtn = document.getElementById('start-btn');
+    const statusDiv = document.getElementById('status-message');
+    const progressDisplay = document.getElementById('progress-display');
+    
+    // Disable button
+    startBtn.disabled = true;
+    startBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Starting Campaign...';
+    
+    // Get form data
+    const textarea = document.querySelector('textarea');
+    const urls = textarea.value.trim().split('\n').filter(url => url.trim());
+    
+    const categories = [];
+    if (document.getElementById('modern-ping').checked) categories.push('modern_ping_services');
+    if (document.getElementById('seo-tools').checked) categories.push('seo_tools');
+    if (document.getElementById('global-rss').checked) categories.push('global_rss');
+    
+    try {
+        console.log('Starting real-time campaign...', { urls, categories });
+        
+        const response = await fetch('/api/start-live-campaign', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ urls, categories })
+        });
+        
+        const result = await response.json();
+        console.log('Campaign start result:', result);
+        
+        if (result.success) {
+            currentCampaign = result.campaign_id;
+            startTime = Date.now();
+            
+            statusDiv.innerHTML = `
+                <div class="alert alert-success">
+                    <strong>Campaign Started!</strong><br>
+                    ID: <code>${result.campaign_id}</code><br>
+                    URLs: ${result.total_urls} | Services: ${result.total_services} | Total Pings: ${result.total_pings}
+                </div>
+            `;
+            
+            // Show progress display
+            progressDisplay.style.display = 'block';
+            document.getElementById('campaign-title').textContent = `Live Progress - ${result.campaign_id}`;
+            
+            // Reset counters
+            resetCounters();
+            addToActivityLog('Campaign started successfully', 'success');
+            
+            // Start progress monitoring
+            startProgressMonitoring();
+            
+        } else {
+            statusDiv.innerHTML = `<div class="alert alert-danger">Error: ${result.error}</div>`;
+            resetButton();
+        }
+        
+    } catch (error) {
+        console.error('Campaign start error:', error);
+        statusDiv.innerHTML = `<div class="alert alert-danger">Network Error: ${error.message}</div>`;
+        resetButton();
+    }
+}
+
+function startProgressMonitoring() {
+    console.log('Starting progress monitoring for:', currentCampaign);
+    
+    addToActivityLog('Starting real-time monitoring...', 'info');
+    
+    progressPoller = setInterval(async () => {
+        if (!currentCampaign) return;
+        
+        try {
+            const response = await fetch(`/api/campaign-progress/${currentCampaign}`);
+            
+            if (!response.ok) {
+                console.log('Campaign completed or not found');
+                handleCampaignComplete();
+                return;
+            }
+            
+            const data = await response.json();
+            console.log('Live progress data:', data);
+            
+            updateLiveProgress(data);
+            
+            if (data.status === 'completed') {
+                handleCampaignComplete();
+            }
+            
+        } catch (error) {
+            console.error('Progress monitoring error:', error);
+            addToActivityLog('Monitoring error: ' + error.message, 'error');
+        }
+    }, 1000); // Update every second
+}
+
+function updateLiveProgress(data) {
+    const percentage = Math.round((data.percentage || 0) * 10) / 10;
+    
+    // Update progress bar
+    const progressBar = document.getElementById('live-progress-bar');
+    const percentageSpan = document.getElementById('live-percentage');
+    const detailsSpan = document.getElementById('live-details');
+    
+    progressBar.style.width = `${percentage}%`;
+    progressBar.innerHTML = `<span class="fw-bold">${percentage}%</span>`;
+    percentageSpan.textContent = `${percentage}%`;
+    
+    // Update statistics
+    const successful = data.successful || 0;
+    const failed = data.failed || 0;
+    const total = successful + failed;
+    const successRate = total > 0 ? Math.round((successful / total) * 100) : 0;
+    
+    document.getElementById('live-success').textContent = successful;
+    document.getElementById('live-failed').textContent = failed;
+    document.getElementById('live-rate').textContent = `${successRate}%`;
+    
+    // Update details
+    const totalPings = data.total || data.total_pings || 0;
+    detailsSpan.textContent = `${total} of ${totalPings} pings completed (${successful} successful, ${failed} failed)`;
+    
+    // Update ETA
+    const etaSpan = document.getElementById('live-eta');
+    if (startTime && percentage > 0) {
+        const elapsed = Date.now() - startTime;
+        const estimatedTotal = (elapsed / percentage) * 100;
+        const remaining = Math.max(0, estimatedTotal - elapsed);
+        const remainingSeconds = Math.round(remaining / 1000);
+        etaSpan.textContent = `ETA: ${remainingSeconds}s`;
+    }
+    
+    // Update current activity
+    const currentActivity = document.getElementById('current-activity');
+    if (data.current_service) {
+        const serviceName = extractServiceName(data.current_service);
+        currentActivity.innerHTML = `
+            <i class="fas fa-paper-plane me-2 text-primary"></i>
+            <strong>Pinging: ${serviceName}</strong><br>
+            <small class="text-muted">${data.current_service}</small>
+        `;
+        
+        // Add to activity log occasionally
+        if (Math.random() < 0.3) { // 30% chance to log each service
+            addToActivityLog(`Pinging ${serviceName}`, 'info');
+        }
+    } else if (data.status === 'running') {
+        currentActivity.innerHTML = `
+            <i class="fas fa-clock me-2 text-warning"></i>
+            <strong>Processing...</strong>
+        `;
+    }
+    
+    // Log progress milestones
+    if (percentage > 0 && percentage % 25 === 0) {
+        addToActivityLog(`${percentage}% complete - ${successful} successful pings`, 'success');
+    }
+}
+
+function extractServiceName(url) {
+    try {
+        return new URL(url).hostname.replace('www.', '').split('.')[0];
+    } catch {
+        return 'Service';
+    }
+}
+
+function addToActivityLog(message, type = 'info') {
+    const timestamp = new Date().toLocaleTimeString();
+    const icon = {
+        'success': 'fas fa-check-circle text-success',
+        'error': 'fas fa-exclamation-circle text-danger',
+        'info': 'fas fa-info-circle text-info',
+        'warning': 'fas fa-exclamation-triangle text-warning'
+    }[type] || 'fas fa-info-circle text-info';
+    
+    activityLog.unshift({
+        timestamp,
+        message,
+        icon,
+        type
+    });
+    
+    // Keep only last 10 entries
+    if (activityLog.length > 10) {
+        activityLog = activityLog.slice(0, 10);
+    }
+    
+    // Update display
+    const logContainer = document.getElementById('activity-log');
+    logContainer.innerHTML = activityLog.map(entry => `
+        <div class="mb-1">
+            <small class="text-muted">${entry.timestamp}</small>
+            <i class="${entry.icon} me-2"></i>
+            <span>${entry.message}</span>
+        </div>
+    `).join('');
+    
+    // Auto-scroll to top
+    logContainer.scrollTop = 0;
+}
+
+function handleCampaignComplete() {
+    console.log('Campaign completed');
+    
+    if (progressPoller) {
+        clearInterval(progressPoller);
+        progressPoller = null;
+    }
+    
+    const progressBar = document.getElementById('live-progress-bar');
+    const header = document.querySelector('#progress-display .card-header');
+    
+    progressBar.classList.remove('progress-bar-animated');
+    progressBar.classList.add('bg-success');
+    progressBar.style.width = '100%';
+    progressBar.innerHTML = '<span class="fw-bold">100% Complete!</span>';
+    
+    header.innerHTML = `
+        <h5 class="mb-0">
+            <i class="fas fa-check-circle me-2"></i>
+            Campaign Completed Successfully!
+        </h5>
+    `;
+    
+    addToActivityLog('Campaign completed successfully!', 'success');
+    
+    resetButton();
+}
+
+function stopCampaign() {
+    if (progressPoller) {
+        clearInterval(progressPoller);
+        progressPoller = null;
+    }
+    
+    currentCampaign = null;
+    addToActivityLog('Campaign stopped by user', 'warning');
+    
+    document.getElementById('progress-display').style.display = 'none';
+    resetButton();
+}
+
+function resetButton() {
+    const startBtn = document.getElementById('start-btn');
+    startBtn.disabled = false;
+    startBtn.innerHTML = '<i class="fas fa-rocket me-2"></i>Start Real-Time Campaign';
+}
+
+function resetCounters() {
+    document.getElementById('live-success').textContent = '0';
+    document.getElementById('live-failed').textContent = '0';
+    document.getElementById('live-rate').textContent = '0%';
+    document.getElementById('live-percentage').textContent = '0%';
+    document.getElementById('live-eta').textContent = 'Calculating...';
+    activityLog = [];
+}
+</script>
+{% endblock %}
