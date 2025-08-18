@@ -134,72 +134,128 @@ class AdvancedIndexingMethods:
             logger.error(f"Failed to generate heartbeat script: {str(e)}")
             return {'success': False, 'error': str(e)}
     
-    def simulate_distributed_crawling(self, backlink_urls, crawl_count=20):
+    def simulate_distributed_crawling(self, backlink_urls, crawl_count=20, use_proxy_rotation=False):
         """
-        Simulate distributed crawling with rotating User-Agents and random delays
+        Advanced distributed crawling with professional proxy rotation support
         """
+        from modules.proxy_rotation import ProxyRotationManager
+        
         results = {
             'total_crawls': 0,
             'successful_crawls': 0,
             'failed_crawls': 0,
             'crawl_details': [],
-            'timestamp': datetime.now().isoformat()
+            'ip_addresses_used': set(),
+            'timestamp': datetime.now().isoformat(),
+            'proxy_rotation_enabled': use_proxy_rotation
         }
+        
+        # Initialize proxy rotation manager
+        rotation_manager = ProxyRotationManager() if use_proxy_rotation else None
         
         try:
             # Randomize URLs and limit batch size
             urls_to_crawl = random.sample(backlink_urls, min(len(backlink_urls), crawl_count))
+            logger.info(f"Starting distributed crawling of {len(urls_to_crawl)} URLs")
             
             for i, url in enumerate(urls_to_crawl):
-                # Rotate User-Agent
-                user_agent = random.choice(self.user_agents)
-                
-                # Random delay between requests (2-10 seconds)
+                # Progressive delay with jitter
                 if i > 0:
-                    delay = random.uniform(2.0, 10.0)
-                    time.sleep(delay)
+                    base_delay = 3.0 + (i * 0.2)  # Gradually increase delays
+                    delay = base_delay + random.uniform(-1.0, 2.0)
+                    time.sleep(max(1.0, delay))
                 
                 try:
-                    headers = {
-                        'User-Agent': user_agent,
-                        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                        'Accept-Language': random.choice(['en-US,en;q=0.9', 'en-GB,en;q=0.9', 'en-CA,en;q=0.9']),
-                        'Accept-Encoding': 'gzip, deflate, br',
-                        'DNT': '1',
-                        'Connection': 'keep-alive',
-                        'Cache-Control': 'no-cache',
-                        'Pragma': 'no-cache'
-                    }
+                    if use_proxy_rotation and rotation_manager:
+                        # Use professional proxy rotation
+                        result = rotation_manager.make_rotating_request(url, method='HEAD')
+                        
+                        if result['success']:
+                            response = result['response']
+                            headers_used = result['headers_used']
+                            
+                            # Try to extract IP information if available
+                            current_ip = 'proxy-hidden'
+                            try:
+                                # Make a quick IP check (optional)
+                                ip_check = rotation_manager.make_rotating_request('http://httpbin.org/ip', method='GET')
+                                if ip_check['success']:
+                                    current_ip = ip_check['response'].json().get('origin', 'unknown')
+                                    results['ip_addresses_used'].add(current_ip)
+                            except:
+                                pass
+                            
+                            crawl_detail = {
+                                'url': url,
+                                'success': True,
+                                'status_code': response.status_code,
+                                'method': 'HEAD',
+                                'user_agent': headers_used.get('User-Agent', '')[:50] + '...',
+                                'response_time': response.elapsed.total_seconds() if hasattr(response, 'elapsed') and hasattr(response.elapsed, 'total_seconds') else 0,
+                                'ip_address': current_ip,
+                                'proxy_used': True,
+                                'timestamp': datetime.now().isoformat()
+                            }
+                            
+                            results['successful_crawls'] += 1
+                            logger.info(f"Proxy crawl success: {url} ({response.status_code}) via {current_ip}")
+                        else:
+                            crawl_detail = {
+                                'url': url,
+                                'success': False,
+                                'error': result.get('error', 'Unknown error'),
+                                'proxy_used': True,
+                                'timestamp': datetime.now().isoformat()
+                            }
+                            results['failed_crawls'] += 1
+                            logger.warning(f"Proxy crawl failed: {url}")
                     
-                    # Vary request methods
-                    method = random.choice(['HEAD', 'GET']) if random.random() < 0.3 else 'HEAD'
-                    
-                    if method == 'GET':
-                        response = requests.get(url, headers=headers, timeout=10, allow_redirects=True)
                     else:
-                        response = requests.head(url, headers=headers, timeout=10, allow_redirects=True)
-                    
-                    success = response.status_code in [200, 201, 202, 301, 302]
-                    
-                    crawl_detail = {
-                        'url': url,
-                        'success': success,
-                        'status_code': response.status_code,
-                        'method': method,
-                        'user_agent': user_agent[:50] + '...',
-                        'response_time': response.elapsed.total_seconds(),
-                        'timestamp': datetime.now().isoformat()
-                    }
+                        # Standard crawling with enhanced User-Agent rotation
+                        user_agent = random.choice(self.user_agents)
+                        headers = {
+                            'User-Agent': user_agent,
+                            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+                            'Accept-Language': random.choice(['en-US,en;q=0.9', 'en-GB,en;q=0.9', 'en-CA,en;q=0.9', 'en-AU,en;q=0.8']),
+                            'Accept-Encoding': 'gzip, deflate, br',
+                            'DNT': random.choice(['1', '0']),
+                            'Connection': 'keep-alive',
+                            'Cache-Control': random.choice(['no-cache', 'max-age=0']),
+                            'Sec-Fetch-Dest': 'document',
+                            'Sec-Fetch-Mode': 'navigate',
+                            'Sec-Fetch-Site': 'none'
+                        }
+                        
+                        # Vary request methods intelligently
+                        method = 'HEAD' if random.random() < 0.8 else 'GET'
+                        
+                        if method == 'GET':
+                            response = requests.get(url, headers=headers, timeout=12, allow_redirects=True)
+                        else:
+                            response = requests.head(url, headers=headers, timeout=8, allow_redirects=True)
+                        
+                        success = response.status_code in [200, 201, 202, 301, 302, 304]
+                        
+                        crawl_detail = {
+                            'url': url,
+                            'success': success,
+                            'status_code': response.status_code,
+                            'method': method,
+                            'user_agent': user_agent[:50] + '...',
+                            'response_time': response.elapsed.total_seconds(),
+                            'proxy_used': False,
+                            'timestamp': datetime.now().isoformat()
+                        }
+                        
+                        if success:
+                            results['successful_crawls'] += 1
+                            logger.info(f"Standard crawl success: {url} ({response.status_code})")
+                        else:
+                            results['failed_crawls'] += 1
+                            logger.warning(f"Standard crawl failed: {url} ({response.status_code})")
                     
                     results['crawl_details'].append(crawl_detail)
                     results['total_crawls'] += 1
-                    
-                    if success:
-                        results['successful_crawls'] += 1
-                        logger.info(f"Distributed crawl success: {url} ({response.status_code})")
-                    else:
-                        results['failed_crawls'] += 1
-                        logger.warning(f"Distributed crawl failed: {url} ({response.status_code})")
                 
                 except Exception as e:
                     results['total_crawls'] += 1
@@ -209,12 +265,16 @@ class AdvancedIndexingMethods:
                         'url': url,
                         'success': False,
                         'error': str(e),
-                        'user_agent': user_agent[:50] + '...',
+                        'proxy_used': use_proxy_rotation,
                         'timestamp': datetime.now().isoformat()
                     }
                     
                     results['crawl_details'].append(crawl_detail)
-                    logger.error(f"Distributed crawl error for {url}: {str(e)}")
+                    logger.error(f"Crawl error for {url}: {str(e)}")
+            
+            # Convert set to list for JSON serialization
+            results['ip_addresses_used'] = list(results['ip_addresses_used'])
+            results['unique_ips_count'] = len(results['ip_addresses_used'])
             
         except Exception as e:
             logger.error(f"Distributed crawling failed: {str(e)}")

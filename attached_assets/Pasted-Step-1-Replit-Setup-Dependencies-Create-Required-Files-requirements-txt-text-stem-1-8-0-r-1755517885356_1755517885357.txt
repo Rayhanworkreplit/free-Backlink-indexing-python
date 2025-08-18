@@ -1,0 +1,458 @@
+Step 1: Replit Setup & Dependencies
+Create Required Files
+requirements.txt
+
+text
+stem==1.8.0
+requests[socks]==2.31.0
+pysocks==1.7.1
+python-dotenv==1.0.0
+schedule==1.2.0
+.replit
+
+text
+[deployment]
+run = ["python", "main.py"]
+
+[nix]
+channel = "stable-22_11"
+
+[[ports]]
+localPort = 9050
+externalPort = 80
+Step 2: Tor Background Service Setup
+setup_tor.py - Tor Installation & Configuration
+python
+import os
+import subprocess
+import time
+import signal
+import sys
+
+class TorManager:
+    def __init__(self):
+        self.tor_process = None
+        self.tor_config_path = "/tmp/torrc"
+        self.tor_data_dir = "/tmp/tor_data"
+        
+    def create_tor_config(self):
+        """Create custom Tor configuration"""
+        os.makedirs(self.tor_data_dir, exist_ok=True)
+        
+        torrc_content = f"""
+# Tor configuration for Replit
+SocksPort 127.0.0.1:9050
+ControlPort 127.0.0.1:9051
+CookieAuthentication 1
+DataDirectory {self.tor_data_dir}
+Log notice stdout
+RunAsDaemon 0
+
+# Performance optimizations
+NumEntryGuards 8
+CircuitBuildTimeout 10
+LearnCircuitBuildTimeout 0
+MaxCircuitDirtiness 10 minutes
+
+# Exit node preferences (optional)
+ExitNodes {{us}},{{ca}},{{gb}},{{de}},{{fr}}
+StrictNodes 0
+"""
+        
+        with open(self.tor_config_path, 'w') as f:
+            f.write(torrc_content)
+            
+    def install_tor(self):
+        """Install Tor if not available"""
+        try:
+            subprocess.run(['tor', '--version'], check=True, capture_output=True)
+            print("✅ Tor already installed")
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            print("📦 Installing Tor...")
+            subprocess.run(['apt-get', 'update'], check=True)
+            subprocess.run(['apt-get', 'install', '-y', 'tor'], check=True)
+            print("✅ Tor installation complete")
+    
+    def start_tor_background(self):
+        """Start Tor as background process"""
+        self.create_tor_config()
+        
+        print("🚀 Starting Tor background service...")
+        self.tor_process = subprocess.Popen([
+            'tor', '-f', self.tor_config_path
+        ], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        
+        # Wait for Tor to bootstrap
+        print("⏳ Waiting for Tor to bootstrap...")
+        time.sleep(15)
+        
+        if self.tor_process.poll() is None:
+            print("✅ Tor is running in background")
+            return True
+        else:
+            print("❌ Failed to start Tor")
+            return False
+    
+    def stop_tor(self):
+        """Stop Tor background process"""
+        if self.tor_process:
+            self.tor_process.terminate()
+            self.tor_process.wait()
+            print("🛑 Tor stopped")
+    
+    def setup_signal_handlers(self):
+        """Setup cleanup on exit"""
+        def signal_handler(sig, frame):
+            self.stop_tor()
+            sys.exit(0)
+        
+        signal.signal(signal.SIGINT, signal_handler)
+        signal.signal(signal.SIGTERM, signal_handler)
+
+# Global Tor manager instance
+tor_manager = TorManager()
+Step 3: IP Rotation Module
+tor_rotation.py - Core IP Rotation Logic
+python
+import time
+import requests
+from stem import Signal
+from stem.control import Controller
+import random
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+class TorRotator:
+    def __init__(self, control_port=9051, socks_port=9050):
+        self.control_port = control_port
+        self.socks_port = socks_port
+        self.current_ip = None
+        self.session = None
+        self.rotation_count = 0
+        
+    def get_tor_session(self):
+        """Create requests session with Tor proxy"""
+        if not self.session:
+            self.session = requests.Session()
+            self.session.proxies = {
+                'http': f'socks5h://127.0.0.1:{self.socks_port}',
+                'https': f'socks5h://127.0.0.1:{self.socks_port}',
+            }
+            self.session.headers.update({
+                'User-Agent': self._random_user_agent()
+            })
+        return self.session
+    
+    def _random_user_agent(self):
+        """Generate random User-Agent"""
+        agents = [
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36',
+            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101',
+        ]
+        return random.choice(agents)
+    
+    def rotate_ip(self):
+        """Signal Tor for new identity (new IP)"""
+        try:
+            with Controller.from_port(port=self.control_port) as controller:
+                controller.authenticate()
+                controller.signal(Signal.NEWNYM)
+                
+                # Wait for new circuit
+                wait_time = controller.get_newnym_wait()
+                time.sleep(max(wait_time, 5))
+                
+                # Reset session to use new circuit
+                self.session = None
+                self.rotation_count += 1
+                
+                # Verify new IP
+                new_ip = self.get_current_ip()
+                if new_ip and new_ip != self.current_ip:
+                    self.current_ip = new_ip
+                    logger.info(f"✅ IP rotated to: {new_ip} (#{self.rotation_count})")
+                    return True
+                else:
+                    logger.warning("⚠️ IP rotation may have failed")
+                    return False
+                    
+        except Exception as e:
+            logger.error(f"❌ Error rotating IP: {e}")
+            return False
+    
+    def get_current_ip(self):
+        """Get current external IP address"""
+        try:
+            session = self.get_tor_session()
+            response = session.get('http://httpbin.org/ip', timeout=15)
+            return response.json().get('origin', '').split(',')[0]
+        except Exception as e:
+            logger.error(f"Error getting IP: {e}")
+            return None
+    
+    def test_connection(self):
+        """Test Tor connection"""
+        ip = self.get_current_ip()
+        if ip:
+            logger.info(f"✅ Tor connection working. Current IP: {ip}")
+            return True
+        else:
+            logger.error("❌ Tor connection failed")
+            return False
+Step 4: Backlink Indexer Integration
+backlink_indexer.py - Main Indexing Tool with Tor
+python
+import time
+import random
+from tor_rotation import TorRotator
+from setup_tor import tor_manager
+import requests
+from urllib.parse import urljoin
+
+class BacklinkIndexer:
+    def __init__(self, enable_tor=True, rotation_interval=10):
+        self.enable_tor = enable_tor
+        self.rotation_interval = rotation_interval
+        self.tor_rotator = TorRotator() if enable_tor else None
+        self.request_count = 0
+        
+        # Free ping services (your existing list)
+        self.ping_services = [
+            "http://pingomatic.com/ping/",
+            "https://feedburner.google.com/fb/a/ping",
+            "http://www.feedsubmitter.com/ping/",
+            # Add your full list of 90+ services here
+        ]
+        
+    def setup(self):
+        """Initialize Tor and test connection"""
+        if self.enable_tor:
+            print("🔧 Setting up Tor...")
+            if not tor_manager.start_tor_background():
+                raise Exception("Failed to start Tor")
+            
+            # Test connection
+            if not self.tor_rotator.test_connection():
+                raise Exception("Tor connection test failed")
+            
+            print("✅ Tor setup complete")
+        
+    def get_session(self):
+        """Get appropriate session (Tor or regular)"""
+        if self.enable_tor:
+            return self.tor_rotator.get_tor_session()
+        else:
+            return requests.Session()
+    
+    def maybe_rotate_ip(self):
+        """Rotate IP if using Tor and interval reached"""
+        if self.enable_tor and self.request_count % self.rotation_interval == 0:
+            if self.request_count > 0:  # Don't rotate on first request
+                print(f"🔄 Rotating IP after {self.request_count} requests...")
+                self.tor_rotator.rotate_ip()
+                time.sleep(2)  # Brief pause after rotation
+    
+    def ping_url(self, url, rss_url=None):
+        """Ping URL to multiple services with Tor rotation"""
+        results = []
+        session = self.get_session()
+        
+        for service in self.ping_services:
+            try:
+                # Rotate IP periodically
+                self.maybe_rotate_ip()
+                
+                # Prepare ping data
+                ping_data = {'url': rss_url or url}
+                
+                # Send ping request
+                response = session.post(
+                    service, 
+                    data=ping_data, 
+                    timeout=10,
+                    headers={'User-Agent': self._random_user_agent()}
+                )
+                
+                success = response.status_code == 200
+                results.append({
+                    'service': service,
+                    'success': success,
+                    'status_code': response.status_code
+                })
+                
+                self.request_count += 1
+                
+                # Random delay to avoid detection
+                time.sleep(random.uniform(1, 3))
+                
+            except Exception as e:
+                results.append({
+                    'service': service,
+                    'success': False,
+                    'error': str(e)
+                })
+        
+        return results
+    
+    def _random_user_agent(self):
+        agents = [
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15',
+            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36',
+        ]
+        return random.choice(agents)
+    
+    def bulk_index_urls(self, urls):
+        """Index multiple URLs with automatic rotation"""
+        all_results = {}
+        
+        for i, url in enumerate(urls):
+            print(f"\n📍 Processing URL {i+1}/{len(urls)}: {url}")
+            
+            # Generate RSS for this URL (simplified)
+            rss_url = self.create_temporary_rss(url)
+            
+            # Ping all services
+            ping_results = self.ping_url(url, rss_url)
+            
+            # Store results
+            all_results[url] = {
+                'ping_results': ping_results,
+                'success_rate': sum(1 for r in ping_results if r['success']) / len(ping_results)
+            }
+            
+            print(f"✅ Success rate: {all_results[url]['success_rate']:.2%}")
+            
+            # Pause between URLs
+            time.sleep(random.uniform(5, 10))
+        
+        return all_results
+    
+    def create_temporary_rss(self, url):
+        """Create a simple RSS feed for the URL (simplified)"""
+        # In practice, you'd generate proper RSS XML and host it
+        # For demo, returning the original URL
+        return url
+    
+    def cleanup(self):
+        """Clean up resources"""
+        if self.enable_tor:
+            tor_manager.stop_tor()
+Step 5: Main Application
+main.py - Application Entry Point
+python
+#!/usr/bin/env python3
+import os
+import sys
+from backlink_indexer import BacklinkIndexer
+from setup_tor import tor_manager
+
+def main():
+    # Sample URLs to index
+    test_urls = [
+        "https://example.com/page1",
+        "https://example.com/page2",
+        "https://example.com/page3",
+    ]
+    
+    # Initialize indexer with Tor
+    indexer = BacklinkIndexer(enable_tor=True, rotation_interval=5)
+    
+    try:
+        # Setup Tor
+        indexer.setup()
+        
+        # Process URLs
+        print("🚀 Starting bulk indexing...")
+        results = indexer.bulk_index_urls(test_urls)
+        
+        # Print summary
+        print("\n📊 INDEXING SUMMARY")
+        print("=" * 50)
+        for url, data in results.items():
+            print(f"URL: {url}")
+            print(f"Success Rate: {data['success_rate']:.2%}")
+            print("-" * 30)
+            
+    except KeyboardInterrupt:
+        print("\n⏹️ Indexing interrupted by user")
+    except Exception as e:
+        print(f"❌ Error: {e}")
+    finally:
+        # Cleanup
+        indexer.cleanup()
+
+if __name__ == "__main__":
+    main()
+Step 6: Background Service Runner
+run_background.py - Keep Tor Running
+python
+import time
+import threading
+from setup_tor import tor_manager
+
+def keep_tor_alive():
+    """Monitor and restart Tor if needed"""
+    while True:
+        if tor_manager.tor_process and tor_manager.tor_process.poll() is not None:
+            print("🔄 Tor process died, restarting...")
+            tor_manager.start_tor_background()
+        time.sleep(30)  # Check every 30 seconds
+
+def start_background_services():
+    """Start all background services"""
+    # Start Tor
+    tor_manager.setup_signal_handlers()
+    tor_manager.install_tor()
+    tor_manager.start_tor_background()
+    
+    # Start monitoring thread
+    monitor_thread = threading.Thread(target=keep_tor_alive, daemon=True)
+    monitor_thread.start()
+    
+    print("✅ Background services started")
+    return monitor_thread
+
+if __name__ == "__main__":
+    start_background_services()
+    
+    # Keep main thread alive
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        tor_manager.stop_tor()
+Usage Instructions
+1. Run Background Services
+bash
+python run_background.py &
+2. Test IP Rotation
+bash
+python -c "
+from tor_rotation import TorRotator
+tr = TorRotator()
+for i in range(3):
+    print(f'IP {i+1}: {tr.get_current_ip()}')
+    tr.rotate_ip()
+"
+3. Run Backlink Indexer
+bash
+python main.py
+Key Benefits
+Automatic IP Rotation: Avoids rate limits and blocks
+
+Background Tor Service: Runs continuously without manual intervention
+
+Error Recovery: Automatically restarts failed Tor processes
+
+Configurable Rotation: Adjust rotation frequency per your needs
+
+Stealth Mode: Random User-Agents and request delays
+
+Integration Ready: Works with your existing 90+ ping services
+
+This workflow ensures your backlink indexing tool can operate continuously with rotating IPs, maximizing success rates while avoiding detection and blocks.
