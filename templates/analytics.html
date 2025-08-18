@@ -1,0 +1,493 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics - Free Ping Indexer Pro{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1><i class="fas fa-chart-bar me-2"></i>Analytics Dashboard</h1>
+        <p class="text-muted">Comprehensive insights into your ping campaign performance and service reliability.</p>
+    </div>
+</div>
+
+<!-- Overview Cards -->
+<div class="row mb-4">
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-tasks fa-2x text-primary"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5 class="card-title mb-0">{{ analytics.overview.total_campaigns or 0 }}</h5>
+                        <p class="card-text text-muted">Total Campaigns</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-link fa-2x text-info"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5 class="card-title mb-0">{{ analytics.overview.total_urls or 0 }}</h5>
+                        <p class="card-text text-muted">URLs Processed</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-rocket fa-2x text-success"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5 class="card-title mb-0">{{ analytics.overview.total_successful_pings or 0 }}</h5>
+                        <p class="card-text text-muted">Successful Pings</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex align-items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-percentage fa-2x text-warning"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5 class="card-title mb-0">{{ "%.1f"|format(analytics.overview.overall_success_rate or 0) }}%</h5>
+                        <p class="card-text text-muted">Overall Success Rate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mb-4">
+    <!-- Success Rate by Method -->
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-chart-pie me-2"></i>Success Rate by Ping Method</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="methodSuccessChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Timeline Chart -->
+    <div class="col-lg-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Campaign Activity Timeline</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="timelineChart" height="300"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Service Performance -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h5 class="mb-0"><i class="fas fa-server me-2"></i>Service Performance Analysis</h5>
+                    </div>
+                    <div class="col-auto">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button type="button" class="btn btn-outline-secondary active" data-service-tab="rss">RSS Services</button>
+                            <button type="button" class="btn btn-outline-secondary" data-service-tab="search">Search Engines</button>
+                            <button type="button" class="btn btn-outline-secondary" data-service-tab="directories">Directories</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- RSS Services Tab -->
+                <div class="service-tab-content" id="rss-tab">
+                    <div class="row">
+                        {% if analytics.service_performance.rss_services %}
+                            {% for service, stats in analytics.service_performance.rss_services.items() %}
+                            <div class="col-lg-4 col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="card-title">{{ service.split('/')[-2] if '/' in service else service }}</h6>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span>Success Rate:</span>
+                                            <span class="fw-bold 
+                                                {% if stats.success_rate >= 80 %}text-success
+                                                {% elif stats.success_rate >= 50 %}text-warning
+                                                {% else %}text-danger{% endif %}">
+                                                {{ "%.1f"|format(stats.success_rate) }}%
+                                            </span>
+                                        </div>
+                                        <div class="progress mb-2" style="height: 8px;">
+                                            {% if stats.success_rate >= 80 %}
+                                                <div class="progress-bar bg-success" style="width: {{ stats.success_rate }}%"></div>
+                                            {% elif stats.success_rate >= 50 %}
+                                                <div class="progress-bar bg-warning" style="width: {{ stats.success_rate }}%"></div>
+                                            {% else %}
+                                                <div class="progress-bar bg-danger" style="width: {{ stats.success_rate }}%"></div>
+                                            {% endif %}
+                                        </div>
+                                        <small class="text-muted">
+                                            {{ stats.successful_attempts }}/{{ stats.total_attempts }} successful
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-12">
+                                <p class="text-muted text-center">No RSS service data available</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Search Engines Tab -->
+                <div class="service-tab-content" id="search-tab" style="display: none;">
+                    <div class="row">
+                        {% if analytics.service_performance.search_engines %}
+                            {% for engine, stats in analytics.service_performance.search_engines.items() %}
+                            <div class="col-lg-4 col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-capitalize">{{ engine }}</h6>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span>Success Rate:</span>
+                                            <span class="fw-bold 
+                                                {% if stats.success_rate >= 80 %}text-success
+                                                {% elif stats.success_rate >= 50 %}text-warning
+                                                {% else %}text-danger{% endif %}">
+                                                {{ "%.1f"|format(stats.success_rate) }}%
+                                            </span>
+                                        </div>
+                                        <div class="progress mb-2" style="height: 8px;">
+                                            {% if stats.success_rate >= 80 %}
+                                                <div class="progress-bar bg-success" style="width: {{ stats.success_rate }}%"></div>
+                                            {% elif stats.success_rate >= 50 %}
+                                                <div class="progress-bar bg-warning" style="width: {{ stats.success_rate }}%"></div>
+                                            {% else %}
+                                                <div class="progress-bar bg-danger" style="width: {{ stats.success_rate }}%"></div>
+                                            {% endif %}
+                                        </div>
+                                        <small class="text-muted">
+                                            {{ stats.successful_attempts }}/{{ stats.total_attempts }} successful
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-12">
+                                <p class="text-muted text-center">No search engine data available</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Directories Tab -->
+                <div class="service-tab-content" id="directories-tab" style="display: none;">
+                    <div class="row">
+                        {% if analytics.service_performance.directories %}
+                            {% for directory, stats in analytics.service_performance.directories.items() %}
+                            <div class="col-lg-4 col-md-6 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="card-title">{{ directory.split('/')[2] if '/' in directory else directory }}</h6>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span>Success Rate:</span>
+                                            <span class="fw-bold 
+                                                {% if stats.success_rate >= 80 %}text-success
+                                                {% elif stats.success_rate >= 50 %}text-warning
+                                                {% else %}text-danger{% endif %}">
+                                                {{ "%.1f"|format(stats.success_rate) }}%
+                                            </span>
+                                        </div>
+                                        <div class="progress mb-2" style="height: 8px;">
+                                            {% if stats.success_rate >= 80 %}
+                                                <div class="progress-bar bg-success" style="width: {{ stats.success_rate }}%"></div>
+                                            {% elif stats.success_rate >= 50 %}
+                                                <div class="progress-bar bg-warning" style="width: {{ stats.success_rate }}%"></div>
+                                            {% else %}
+                                                <div class="progress-bar bg-danger" style="width: {{ stats.success_rate }}%"></div>
+                                            {% endif %}
+                                        </div>
+                                        <small class="text-muted">
+                                            {{ stats.successful_attempts }}/{{ stats.total_attempts }} successful
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="col-12">
+                                <p class="text-muted text-center">No directory data available</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Top Performing Services -->
+<div class="row">
+    <div class="col-lg-8 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-trophy me-2"></i>Top Performing Services</h5>
+            </div>
+            <div class="card-body">
+                {% if analytics.top_performing_services %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>Type</th>
+                                    <th>Success Rate</th>
+                                    <th>Total Attempts</th>
+                                    <th>Reliability</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for service, stats in analytics.top_performing_services.items() %}
+                                <tr>
+                                    <td>
+                                        <strong>{{ service.split('/')[-2] if '/' in service else service }}</strong>
+                                    </td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if stats.type == 'RSS' %}bg-primary
+                                            {% elif stats.type == 'Search Engine' %}bg-info
+                                            {% else %}bg-secondary{% endif %}">
+                                            {{ stats.type }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold 
+                                            {% if stats.success_rate >= 80 %}text-success
+                                            {% elif stats.success_rate >= 50 %}text-warning
+                                            {% else %}text-danger{% endif %}">
+                                            {{ "%.1f"|format(stats.success_rate) }}%
+                                        </span>
+                                    </td>
+                                    <td>{{ stats.total }}</td>
+                                    <td>
+                                        <div class="progress" style="height: 6px; width: 100px;">
+                                            {% if stats.success_rate >= 80 %}
+                                                <div class="progress-bar bg-success" style="width: {{ stats.success_rate }}%"></div>
+                                            {% elif stats.success_rate >= 50 %}
+                                                <div class="progress-bar bg-warning" style="width: {{ stats.success_rate }}%"></div>
+                                            {% else %}
+                                                <div class="progress-bar bg-danger" style="width: {{ stats.success_rate }}%"></div>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center">No service performance data available</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-chart-donut me-2"></i>Method Distribution</h5>
+            </div>
+            <div class="card-body">
+                <canvas id="methodDistributionChart" height="250"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Service tab switching
+document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('[data-service-tab]');
+    const tabContents = document.querySelectorAll('.service-tab-content');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-service-tab');
+            
+            // Update active button
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Show target tab content
+            tabContents.forEach(content => {
+                content.style.display = 'none';
+            });
+            document.getElementById(`${targetTab}-tab`).style.display = 'block';
+        });
+    });
+});
+
+// Chart configurations
+const chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+        legend: {
+            labels: {
+                color: 'rgba(255, 255, 255, 0.8)'
+            }
+        }
+    }
+};
+
+// Success Rate by Method Chart
+{% if analytics.success_rates %}
+const methodCtx = document.getElementById('methodSuccessChart').getContext('2d');
+new Chart(methodCtx, {
+    type: 'doughnut',
+    data: {
+        labels: [
+            {% for method in analytics.success_rates.keys() %}
+                '{{ method.title() }}',
+            {% endfor %}
+        ],
+        datasets: [{
+            data: [
+                {% for stats in analytics.success_rates.values() %}
+                    {{ stats.rate }},
+                {% endfor %}
+            ],
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(255, 205, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)'
+            ],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        ...chartOptions,
+        plugins: {
+            ...chartOptions.plugins,
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return `${context.label}: ${context.parsed}%`;
+                    }
+                }
+            }
+        }
+    }
+});
+{% endif %}
+
+// Timeline Chart
+{% if analytics.timeline_data %}
+const timelineCtx = document.getElementById('timelineChart').getContext('2d');
+new Chart(timelineCtx, {
+    type: 'line',
+    data: {
+        labels: [
+            {% for date in analytics.timeline_data.keys() %}
+                '{{ date }}',
+            {% endfor %}
+        ],
+        datasets: [{
+            label: 'Successful Pings',
+            data: [
+                {% for data in analytics.timeline_data.values() %}
+                    {{ data.pings }},
+                {% endfor %}
+            ],
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.1)',
+            tension: 0.4,
+            fill: true
+        }]
+    },
+    options: {
+        ...chartOptions,
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    color: 'rgba(255, 255, 255, 0.8)'
+                },
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.1)'
+                }
+            },
+            x: {
+                ticks: {
+                    color: 'rgba(255, 255, 255, 0.8)'
+                },
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.1)'
+                }
+            }
+        }
+    }
+});
+{% endif %}
+
+// Method Distribution Chart
+{% if analytics.success_rates %}
+const distributionCtx = document.getElementById('methodDistributionChart').getContext('2d');
+new Chart(distributionCtx, {
+    type: 'pie',
+    data: {
+        labels: [
+            {% for method in analytics.success_rates.keys() %}
+                '{{ method.title() }}',
+            {% endfor %}
+        ],
+        datasets: [{
+            data: [
+                {% for stats in analytics.success_rates.values() %}
+                    {{ stats.total }},
+                {% endfor %}
+            ],
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(255, 205, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)'
+            ],
+            borderWidth: 0
+        }]
+    },
+    options: chartOptions
+});
+{% endif %}
+</script>
+{% endblock %}

@@ -1,0 +1,376 @@
+{% extends "base.html" %}
+
+{% block title %}Bulk Upload - Free Ping Indexer Pro{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1><i class="fas fa-upload me-2"></i>Bulk URL Upload</h1>
+        <p class="text-muted">Upload multiple URLs for comprehensive ping indexing using RSS feeds, sitemaps, and free ping services.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="uploadTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="text-tab" data-bs-toggle="tab" data-bs-target="#text-upload" type="button">
+                            <i class="fas fa-align-left me-2"></i>Text Input
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="csv-tab" data-bs-toggle="tab" data-bs-target="#csv-upload" type="button">
+                            <i class="fas fa-file-csv me-2"></i>CSV Upload
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="manual-tab" data-bs-toggle="tab" data-bs-target="#manual-input" type="button">
+                            <i class="fas fa-edit me-2"></i>Manual Entry
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="card-body">
+                <form action="{{ url_for('create_campaign') }}" method="post" id="campaignForm">
+                    <div class="tab-content" id="uploadTabContent">
+                        <!-- Text Input Tab -->
+                        <div class="tab-pane fade show active" id="text-upload" role="tabpanel">
+                            <div class="mb-3">
+                                <label for="campaignName" class="form-label">Campaign Name</label>
+                                <input type="text" class="form-control" id="campaignName" name="campaign_name" 
+                                       placeholder="My Backlink Campaign" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="urlsText" class="form-label">URLs (one per line)</label>
+                                <textarea class="form-control" id="urlsText" name="urls_text" rows="10" 
+                                          placeholder="https://example.com/page1&#10;https://example.com/page2&#10;https://example.com/page3"></textarea>
+                                <div class="form-text">Enter one URL per line. Comments starting with # will be ignored.</div>
+                            </div>
+                            
+                            <input type="hidden" name="input_type" value="text">
+                        </div>
+                        
+                        <!-- CSV Upload Tab -->
+                        <div class="tab-pane fade" id="csv-upload" role="tabpanel">
+                            <div class="mb-3">
+                                <label for="campaignNameCsv" class="form-label">Campaign Name</label>
+                                <input type="text" class="form-control" id="campaignNameCsv" name="campaign_name_csv" 
+                                       placeholder="CSV Import Campaign">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="csvData" class="form-label">CSV Data</label>
+                                <textarea class="form-control" id="csvData" name="csv_data" rows="10" 
+                                          placeholder="URL,Title,Description&#10;https://example.com/page1,Page Title,Page Description"></textarea>
+                                <div class="form-text">Paste your CSV data here. First column should contain URLs.</div>
+                            </div>
+                            
+                            <input type="hidden" name="input_type" value="csv">
+                        </div>
+                        
+                        <!-- Manual Entry Tab -->
+                        <div class="tab-pane fade" id="manual-input" role="tabpanel">
+                            <div class="mb-3">
+                                <label for="campaignNameManual" class="form-label">Campaign Name</label>
+                                <input type="text" class="form-control" id="campaignNameManual" name="campaign_name_manual" 
+                                       placeholder="Manual Entry Campaign">
+                            </div>
+                            
+                            <div id="urlInputs">
+                                <div class="url-input-group mb-2">
+                                    <div class="input-group">
+                                        <input type="url" class="form-control" name="manual_urls" placeholder="https://example.com/page">
+                                        <button type="button" class="btn btn-outline-danger remove-url" disabled>
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="button" class="btn btn-outline-primary" id="addUrlBtn">
+                                <i class="fas fa-plus me-2"></i>Add Another URL
+                            </button>
+                            
+                            <input type="hidden" name="input_type" value="manual">
+                        </div>
+                    </div>
+                    
+                    <!-- Ping Methods Selection -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h5><i class="fas fa-cogs me-2"></i>Ping Methods</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="ping_methods" value="rss" id="rssMethod" checked>
+                                        <label class="form-check-label" for="rssMethod">
+                                            <strong>RSS Feeds</strong><br>
+                                            <small class="text-muted">Generate RSS feeds and ping 20+ services</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="ping_methods" value="sitemap" id="sitemapMethod" checked>
+                                        <label class="form-check-label" for="sitemapMethod">
+                                            <strong>XML Sitemaps</strong><br>
+                                            <small class="text-muted">Create sitemaps and ping search engines</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="ping_methods" value="archive" id="archiveMethod" checked>
+                                        <label class="form-check-label" for="archiveMethod">
+                                            <strong>Archive.org</strong><br>
+                                            <small class="text-muted">Trigger Wayback Machine saves</small>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="ping_methods" value="directories" id="directoriesMethod">
+                                        <label class="form-check-label" for="directoriesMethod">
+                                            <strong>Free Directories</strong><br>
+                                            <small class="text-muted">Submit to web directory catalogs</small>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Schedule Options -->
+                    <div class="row mt-4">
+                        <div class="col-12">
+                            <h5><i class="fas fa-clock me-2"></i>Schedule Options</h5>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="schedule_type" value="immediate" id="immediate" checked>
+                                <label class="form-check-label" for="immediate">
+                                    <strong>Start Immediately</strong> - Begin pinging as soon as campaign is created
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="schedule_type" value="delayed" id="delayed">
+                                <label class="form-check-label" for="delayed">
+                                    <strong>Schedule for Later</strong> - Set a specific time to start
+                                </label>
+                            </div>
+                            <div class="ms-4 mt-2" id="scheduleTimeGroup" style="display: none;">
+                                <input type="time" class="form-control" name="schedule_time" style="width: auto;">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="button" class="btn btn-outline-secondary" id="validateBtn">
+                            <i class="fas fa-check-circle me-2"></i>Validate URLs
+                        </button>
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-rocket me-2"></i>Create Campaign
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <!-- Upload Instructions -->
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Upload Instructions</h5>
+            </div>
+            <div class="card-body">
+                <h6>Supported Formats:</h6>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-check text-success me-2"></i>Plain text (one URL per line)</li>
+                    <li><i class="fas fa-check text-success me-2"></i>CSV format (URL in first column)</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Manual entry with form</li>
+                </ul>
+                
+                <h6 class="mt-3">Best Practices:</h6>
+                <ul class="list-unstyled">
+                    <li><i class="fas fa-lightbulb text-warning me-2"></i>Include http:// or https://</li>
+                    <li><i class="fas fa-lightbulb text-warning me-2"></i>Remove duplicate URLs</li>
+                    <li><i class="fas fa-lightbulb text-warning me-2"></i>Max {{ max_urls }} URLs per campaign</li>
+                    <li><i class="fas fa-lightbulb text-warning me-2"></i>Use descriptive campaign names</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Ping Services Info -->
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-server me-2"></i>Available Services</h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="border-end">
+                            <h4 class="text-primary">{{ rss_services_count }}</h4>
+                            <small>RSS Services</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h4 class="text-info">{{ search_engines_count }}</h4>
+                        <small>Search Engines</small>
+                    </div>
+                </div>
+                <hr>
+                <div class="row text-center">
+                    <div class="col-6">
+                        <div class="border-end">
+                            <h4 class="text-success">1</h4>
+                            <small>Archive Service</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h4 class="text-warning">{{ directories_count }}</h4>
+                        <small>Directories</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- URL Validation Results -->
+        <div class="card mt-3" id="validationResults" style="display: none;">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-check-circle me-2"></i>Validation Results</h5>
+            </div>
+            <div class="card-body">
+                <div id="validationContent">
+                    <!-- Dynamic validation results -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Manual URL input management
+document.getElementById('addUrlBtn').addEventListener('click', function() {
+    const container = document.getElementById('urlInputs');
+    const newInput = document.createElement('div');
+    newInput.className = 'url-input-group mb-2';
+    newInput.innerHTML = `
+        <div class="input-group">
+            <input type="url" class="form-control" name="manual_urls" placeholder="https://example.com/page">
+            <button type="button" class="btn btn-outline-danger remove-url">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+    container.appendChild(newInput);
+    updateRemoveButtons();
+});
+
+// Remove URL input
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.remove-url')) {
+        e.target.closest('.url-input-group').remove();
+        updateRemoveButtons();
+    }
+});
+
+function updateRemoveButtons() {
+    const inputs = document.querySelectorAll('.url-input-group');
+    inputs.forEach((input, index) => {
+        const removeBtn = input.querySelector('.remove-url');
+        removeBtn.disabled = inputs.length === 1;
+    });
+}
+
+// Schedule type handling
+document.querySelectorAll('input[name="schedule_type"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+        const timeGroup = document.getElementById('scheduleTimeGroup');
+        timeGroup.style.display = this.value === 'delayed' ? 'block' : 'none';
+    });
+});
+
+// Campaign name synchronization
+document.getElementById('campaignName').addEventListener('input', function() {
+    document.getElementById('campaignNameCsv').value = this.value;
+    document.getElementById('campaignNameManual').value = this.value;
+});
+
+// URL validation
+document.getElementById('validateBtn').addEventListener('click', function() {
+    const activeTab = document.querySelector('.tab-pane.active');
+    let urls = [];
+    
+    if (activeTab.id === 'text-upload') {
+        const text = document.getElementById('urlsText').value;
+        urls = text.split('\n').filter(line => line.trim() && !line.trim().startsWith('#'));
+    } else if (activeTab.id === 'csv-upload') {
+        const csvText = document.getElementById('csvData').value;
+        const lines = csvText.split('\n');
+        urls = lines.slice(1).map(line => line.split(',')[0]).filter(url => url && url.trim());
+    } else if (activeTab.id === 'manual-input') {
+        const inputs = document.querySelectorAll('input[name="manual_urls"]');
+        urls = Array.from(inputs).map(input => input.value).filter(url => url.trim());
+    }
+    
+    // Simple validation
+    const valid = [];
+    const invalid = [];
+    
+    urls.forEach(url => {
+        url = url.trim();
+        if (url.match(/^https?:\/\/.+/)) {
+            valid.push(url);
+        } else {
+            invalid.push(url);
+        }
+    });
+    
+    // Show results
+    const resultsCard = document.getElementById('validationResults');
+    const content = document.getElementById('validationContent');
+    
+    content.innerHTML = `
+        <div class="row text-center">
+            <div class="col-6">
+                <h4 class="text-success">${valid.length}</h4>
+                <small>Valid URLs</small>
+            </div>
+            <div class="col-6">
+                <h4 class="text-danger">${invalid.length}</h4>
+                <small>Invalid URLs</small>
+            </div>
+        </div>
+        ${invalid.length > 0 ? `
+            <hr>
+            <h6 class="text-danger">Invalid URLs:</h6>
+            <small>${invalid.slice(0, 5).join('<br>')}</small>
+            ${invalid.length > 5 ? '<br><small class="text-muted">... and ' + (invalid.length - 5) + ' more</small>' : ''}
+        ` : ''}
+    `;
+    
+    resultsCard.style.display = 'block';
+});
+
+// Form submission validation
+document.getElementById('campaignForm').addEventListener('submit', function(e) {
+    // Ensure at least one ping method is selected
+    const methods = document.querySelectorAll('input[name="ping_methods"]:checked');
+    if (methods.length === 0) {
+        e.preventDefault();
+        alert('Please select at least one ping method.');
+        return;
+    }
+    
+    // Show loading state
+    const submitBtn = this.querySelector('button[type="submit"]');
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Creating Campaign...';
+    submitBtn.disabled = true;
+});
+</script>
+{% endblock %}

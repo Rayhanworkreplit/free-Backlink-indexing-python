@@ -1,0 +1,7 @@
+{
+  "google": "https://www.google.com/ping?sitemap=",
+  "bing": "https://www.bing.com/webmaster/ping.aspx?siteMap=",
+  "yandex": "https://webmaster.yandex.com/ping?sitemap=",
+  "baidu": "https://www.baidu.com/s?wd=",
+  "duckduckgo": "https://duckduckgo.com/ping?sitemap="
+}

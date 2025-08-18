@@ -1,0 +1,546 @@
+{% extends "base.html" %}
+
+{% block title %}{{ campaign.name }} - Campaign Details{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1><i class="fas fa-eye me-2"></i>Campaign Details</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ url_for('index') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('campaigns') }}">Campaigns</a></li>
+                        <li class="breadcrumb-item active">{{ campaign.name }}</li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="btn-group">
+                {% if campaign.status == 'failed' %}
+                    <form method="post" action="{{ url_for('retry_campaign', campaign_id=campaign_id) }}" class="d-inline">
+                        <button type="submit" class="btn btn-warning" onclick="return confirm('Retry this campaign?')">
+                            <i class="fas fa-redo me-2"></i>Retry Campaign
+                        </button>
+                    </form>
+                {% endif %}
+                <a href="{{ url_for('export_campaign', campaign_id=campaign_id, format='csv') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-download me-2"></i>Export CSV
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Campaign Overview -->
+<div class="row mb-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Campaign Overview</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>Name:</strong></td>
+                                <td>{{ campaign.name }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Campaign ID:</strong></td>
+                                <td><code>{{ campaign_id }}</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Status:</strong></td>
+                                <td>
+                                    {% if campaign.status == 'completed' %}
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check me-1"></i>Completed
+                                        </span>
+                                    {% elif campaign.status == 'processing' %}
+                                        <span class="badge bg-warning">
+                                            <i class="fas fa-spinner fa-spin me-1"></i>Processing
+                                        </span>
+                                    {% elif campaign.status == 'failed' %}
+                                        <span class="badge bg-danger">
+                                            <i class="fas fa-times me-1"></i>Failed
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">
+                                            <i class="fas fa-clock me-1"></i>Pending
+                                        </span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Created:</strong></td>
+                                <td>{{ campaign.created_date[:19].replace('T', ' ') if campaign.created_date else 'N/A' }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table class="table table-borderless">
+                            <tr>
+                                <td><strong>Total URLs:</strong></td>
+                                <td><span class="badge bg-info">{{ campaign.total_urls or 0 }}</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Successful Pings:</strong></td>
+                                <td><span class="badge bg-success">{{ campaign.successful_pings or 0 }}</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Failed Pings:</strong></td>
+                                <td><span class="badge bg-danger">{{ campaign.failed_pings or 0 }}</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Success Rate:</strong></td>
+                                <td>
+                                    {% set total_pings = (campaign.successful_pings or 0) + (campaign.failed_pings or 0) %}
+                                    {% if total_pings > 0 %}
+                                        {% set success_rate = ((campaign.successful_pings or 0) / total_pings) * 100 %}
+                                        <span class="fw-bold 
+                                            {% if success_rate >= 80 %}text-success
+                                            {% elif success_rate >= 50 %}text-warning
+                                            {% else %}text-danger{% endif %}">
+                                            {{ "%.1f"|format(success_rate) }}%
+                                        </span>
+                                    {% else %}
+                                        <span class="text-muted">No data</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-cogs me-2"></i>Ping Methods Used</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-wrap gap-2">
+                    {% for method in campaign.ping_methods %}
+                        {% if method == 'rss' %}
+                            <span class="badge bg-primary">
+                                <i class="fas fa-rss me-1"></i>RSS Feeds
+                            </span>
+                        {% elif method == 'sitemap' %}
+                            <span class="badge bg-info">
+                                <i class="fas fa-sitemap me-1"></i>XML Sitemaps
+                            </span>
+                        {% elif method == 'archive' %}
+                            <span class="badge bg-success">
+                                <i class="fas fa-archive me-1"></i>Archive.org
+                            </span>
+                        {% elif method == 'directories' %}
+                            <span class="badge bg-warning">
+                                <i class="fas fa-folder me-1"></i>Directories
+                            </span>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Stats -->
+        <div class="card mt-3">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Service Performance</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span>RSS Services</span>
+                        <span class="badge bg-primary">
+                            {{ service_stats.rss_success }}/{{ service_stats.rss_total }}
+                        </span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        {% set rss_rate = (service_stats.rss_success / service_stats.rss_total * 100) if service_stats.rss_total > 0 else 0 %}
+                        <div class="progress-bar bg-primary" style="width: {{ rss_rate }}%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span>Search Engines</span>
+                        <span class="badge bg-info">
+                            {{ service_stats.sitemap_success }}/{{ service_stats.sitemap_total }}
+                        </span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        {% set sitemap_rate = (service_stats.sitemap_success / service_stats.sitemap_total * 100) if service_stats.sitemap_total > 0 else 0 %}
+                        <div class="progress-bar bg-info" style="width: {{ sitemap_rate }}%"></div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span>Archive</span>
+                        <span class="badge bg-success">
+                            {{ service_stats.archive_success }}/{{ service_stats.archive_total }}
+                        </span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        {% set archive_rate = (service_stats.archive_success / service_stats.archive_total * 100) if service_stats.archive_total > 0 else 0 %}
+                        <div class="progress-bar bg-success" style="width: {{ archive_rate }}%"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span>Directories</span>
+                        <span class="badge bg-warning">
+                            {{ service_stats.directory_success }}/{{ service_stats.directory_total }}
+                        </span>
+                    </div>
+                    <div class="progress" style="height: 6px;">
+                        {% set directory_rate = (service_stats.directory_success / service_stats.directory_total * 100) if service_stats.directory_total > 0 else 0 %}
+                        <div class="progress-bar bg-warning" style="width: {{ directory_rate }}%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Campaign URLs -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-link me-2"></i>Campaign URLs ({{ campaign.urls|length }})</h5>
+            </div>
+            <div class="card-body">
+                {% if campaign.urls %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>URL</th>
+                                    <th>Domain</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for url in campaign.urls %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>
+                                        <a href="{{ url }}" target="_blank" rel="noopener">
+                                            {{ url|truncate(50, True) }}
+                                            <i class="fas fa-external-link-alt ms-1 small"></i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <code>{{ url.split('/')[2] if '//' in url else 'N/A' }}</code>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" 
+                                                onclick="navigator.clipboard.writeText('{{ url }}')">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <p class="text-muted">No URLs in this campaign.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Detailed Results -->
+{% if campaign.results %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs" id="resultsTabs" role="tablist">
+                    {% if campaign.results.rss_pings %}
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="rss-tab" data-bs-toggle="tab" data-bs-target="#rss-results" type="button">
+                            <i class="fas fa-rss me-2"></i>RSS Results
+                        </button>
+                    </li>
+                    {% endif %}
+                    {% if campaign.results.sitemap_pings %}
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link{% if not campaign.results.rss_pings %} active{% endif %}" id="sitemap-tab" data-bs-toggle="tab" data-bs-target="#sitemap-results" type="button">
+                            <i class="fas fa-sitemap me-2"></i>Sitemap Results
+                        </button>
+                    </li>
+                    {% endif %}
+                    {% if campaign.results.archive_saves %}
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link{% if not campaign.results.rss_pings and not campaign.results.sitemap_pings %} active{% endif %}" id="archive-tab" data-bs-toggle="tab" data-bs-target="#archive-results" type="button">
+                            <i class="fas fa-archive me-2"></i>Archive Results
+                        </button>
+                    </li>
+                    {% endif %}
+                    {% if campaign.results.directory_submissions %}
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link{% if not campaign.results.rss_pings and not campaign.results.sitemap_pings and not campaign.results.archive_saves %} active{% endif %}" id="directory-tab" data-bs-toggle="tab" data-bs-target="#directory-results" type="button">
+                            <i class="fas fa-folder me-2"></i>Directory Results
+                        </button>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="card-body">
+                <div class="tab-content" id="resultsTabContent">
+                    <!-- RSS Results -->
+                    {% if campaign.results.rss_pings %}
+                    <div class="tab-pane fade show active" id="rss-results" role="tabpanel">
+                        {% for feed_type, rss_results in campaign.results.rss_pings.items() %}
+                        <h6 class="mt-3"><i class="fas fa-rss me-2"></i>{{ feed_type.title() }} Feed Results</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Service</th>
+                                        <th>Status</th>
+                                        <th>Response Code</th>
+                                        <th>Timestamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for service, result in rss_results.items() %}
+                                    <tr>
+                                        <td>
+                                            <small>{{ service.split('/')[-2] if '/' in service else service }}</small>
+                                        </td>
+                                        <td>
+                                            {% if result.success %}
+                                                <span class="badge bg-success">Success</span>
+                                            {% else %}
+                                                <span class="badge bg-danger">Failed</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <code>{{ result.status_code if result.status_code else 'N/A' }}</code>
+                                        </td>
+                                        <td>
+                                            <small>{{ result.timestamp[:19].replace('T', ' ') if result.timestamp else 'N/A' }}</small>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Sitemap Results -->
+                    {% if campaign.results.sitemap_pings %}
+                    <div class="tab-pane fade{% if not campaign.results.rss_pings %} show active{% endif %}" id="sitemap-results" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Search Engine</th>
+                                        <th>Status</th>
+                                        <th>Response Code</th>
+                                        <th>Ping URL</th>
+                                        <th>Timestamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for engine, result in campaign.results.sitemap_pings.items() %}
+                                    <tr>
+                                        <td>
+                                            <strong class="text-capitalize">{{ engine }}</strong>
+                                        </td>
+                                        <td>
+                                            {% if result.success %}
+                                                <span class="badge bg-success">Success</span>
+                                            {% else %}
+                                                <span class="badge bg-danger">Failed</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <code>{{ result.status_code if result.status_code else 'N/A' }}</code>
+                                        </td>
+                                        <td>
+                                            {% if result.ping_url %}
+                                                <a href="{{ result.ping_url }}" target="_blank" class="small">
+                                                    {{ result.ping_url|truncate(40, True) }}
+                                                    <i class="fas fa-external-link-alt ms-1"></i>
+                                                </a>
+                                            {% else %}
+                                                N/A
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <small>{{ result.timestamp[:19].replace('T', ' ') if result.timestamp else 'N/A' }}</small>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Archive Results -->
+                    {% if campaign.results.archive_saves %}
+                    <div class="tab-pane fade{% if not campaign.results.rss_pings and not campaign.results.sitemap_pings %} show active{% endif %}" id="archive-results" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>URL</th>
+                                        <th>Status</th>
+                                        <th>Response Code</th>
+                                        <th>Archived URL</th>
+                                        <th>Timestamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for url, result in campaign.results.archive_saves.items() %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ url }}" target="_blank">
+                                                {{ url|truncate(40, True) }}
+                                                <i class="fas fa-external-link-alt ms-1 small"></i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {% if result.success %}
+                                                <span class="badge bg-success">Archived</span>
+                                            {% else %}
+                                                <span class="badge bg-danger">Failed</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <code>{{ result.status_code if result.status_code else 'N/A' }}</code>
+                                        </td>
+                                        <td>
+                                            {% if result.archived_url %}
+                                                <a href="{{ result.archived_url }}" target="_blank" class="small">
+                                                    View Archive
+                                                    <i class="fas fa-external-link-alt ms-1"></i>
+                                                </a>
+                                            {% else %}
+                                                N/A
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <small>{{ result.timestamp[:19].replace('T', ' ') if result.timestamp else 'N/A' }}</small>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Directory Results -->
+                    {% if campaign.results.directory_submissions %}
+                    <div class="tab-pane fade{% if not campaign.results.rss_pings and not campaign.results.sitemap_pings and not campaign.results.archive_saves %} show active{% endif %}" id="directory-results" role="tabpanel">
+                        {% for url, dir_results in campaign.results.directory_submissions.items() %}
+                        <h6 class="mt-3"><i class="fas fa-link me-2"></i>{{ url|truncate(50, True) }}</h6>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Directory</th>
+                                        <th>Status</th>
+                                        <th>Response Code</th>
+                                        <th>Timestamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for directory, result in dir_results.items() %}
+                                    <tr>
+                                        <td>
+                                            <small>{{ directory.split('/')[2] if '/' in directory else directory }}</small>
+                                        </td>
+                                        <td>
+                                            {% if result.success %}
+                                                <span class="badge bg-success">Success</span>
+                                            {% else %}
+                                                <span class="badge bg-danger">Failed</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <code>{{ result.status_code if result.status_code else 'N/A' }}</code>
+                                        </td>
+                                        <td>
+                                            <small>{{ result.timestamp[:19].replace('T', ' ') if result.timestamp else 'N/A' }}</small>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-clock fa-3x text-muted mb-3"></i>
+                <h5>No Results Available</h5>
+                <p class="text-muted">This campaign hasn't been processed yet or no results were generated.</p>
+                {% if campaign.status == 'pending' %}
+                    <p class="small text-info">Campaign is waiting to be processed.</p>
+                {% elif campaign.status == 'processing' %}
+                    <p class="small text-warning">Campaign is currently being processed. Results will appear here when complete.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Copy URL to clipboard
+document.querySelectorAll('button[onclick*="navigator.clipboard"]').forEach(button => {
+    button.addEventListener('click', function() {
+        setTimeout(() => {
+            // Show toast notification
+            const toast = document.createElement('div');
+            toast.className = 'alert alert-success alert-dismissible fade show position-fixed';
+            toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999; max-width: 250px;';
+            toast.innerHTML = 'URL copied to clipboard! <button type="button" class="btn-close" data-bs-dismiss="alert"></button>';
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 3000);
+        }, 100);
+    });
+});
+
+// Auto-refresh if campaign is processing
+{% if campaign.status == 'processing' %}
+setTimeout(function() {
+    location.reload();
+}, 15000); // Refresh every 15 seconds for processing campaigns
+{% endif %}
+</script>
+{% endblock %}

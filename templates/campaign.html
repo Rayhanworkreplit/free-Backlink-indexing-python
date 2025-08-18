@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+
+{% block title %}Campaigns - Free Ping Indexer Pro{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1><i class="fas fa-tasks me-2"></i>Campaign Management</h1>
+            <a href="{{ url_for('bulk_upload') }}" class="btn btn-primary">
+                <i class="fas fa-plus me-2"></i>New Campaign
+            </a>
+        </div>
+    </div>
+</div>
+
+{% if campaigns %}
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h5 class="mb-0">All Campaigns ({{ campaigns|length }})</h5>
+                    </div>
+                    <div class="col-auto">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button type="button" class="btn btn-outline-secondary active" data-filter="all">All</button>
+                            <button type="button" class="btn btn-outline-secondary" data-filter="completed">Completed</button>
+                            <button type="button" class="btn btn-outline-secondary" data-filter="processing">Processing</button>
+                            <button type="button" class="btn btn-outline-secondary" data-filter="pending">Pending</button>
+                            <button type="button" class="btn btn-outline-secondary" data-filter="failed">Failed</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Campaign</th>
+                                <th>URLs</th>
+                                <th>Status</th>
+                                <th>Methods</th>
+                                <th>Success Rate</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for campaign in campaigns %}
+                            <tr class="campaign-row" data-status="{{ campaign.status }}">
+                                <td>
+                                    <div>
+                                        <strong>{{ campaign.name }}</strong>
+                                        <br><small class="text-muted">{{ campaign.id }}</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-info">{{ campaign.total_urls }}</span>
+                                </td>
+                                <td>
+                                    {% if campaign.status == 'completed' %}
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check me-1"></i>Completed
+                                        </span>
+                                    {% elif campaign.status == 'processing' %}
+                                        <span class="badge bg-warning">
+                                            <i class="fas fa-spinner fa-spin me-1"></i>Processing
+                                        </span>
+                                    {% elif campaign.status == 'failed' %}
+                                        <span class="badge bg-danger">
+                                            <i class="fas fa-times me-1"></i>Failed
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">
+                                            <i class="fas fa-clock me-1"></i>Pending
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="d-flex flex-wrap gap-1">
+                                        {% for method in campaign.ping_methods %}
+                                            {% if method == 'rss' %}
+                                                <span class="badge bg-primary">RSS</span>
+                                            {% elif method == 'sitemap' %}
+                                                <span class="badge bg-info">Sitemap</span>
+                                            {% elif method == 'archive' %}
+                                                <span class="badge bg-success">Archive</span>
+                                            {% elif method == 'directories' %}
+                                                <span class="badge bg-warning">Directories</span>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if campaign.successful_pings + campaign.failed_pings > 0 %}
+                                        <div class="d-flex align-items-center">
+                                            <span class="me-2">{{ "%.1f"|format(campaign.success_rate) }}%</span>
+                                            <div class="progress flex-grow-1" style="height: 6px; width: 60px;">
+                                                {% if campaign.success_rate >= 80 %}
+                                                    <div class="progress-bar bg-success" style="width: {{ campaign.success_rate }}%"></div>
+                                                {% elif campaign.success_rate >= 50 %}
+                                                    <div class="progress-bar bg-warning" style="width: {{ campaign.success_rate }}%"></div>
+                                                {% else %}
+                                                    <div class="progress-bar bg-danger" style="width: {{ campaign.success_rate }}%"></div>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <small class="text-muted">
+                                            {{ campaign.successful_pings }}/{{ campaign.successful_pings + campaign.failed_pings }} pings
+                                        </small>
+                                    {% else %}
+                                        <span class="text-muted">No data</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <small>{{ campaign.created_date[:10] if campaign.created_date else 'N/A' }}</small>
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="{{ url_for('view_campaign', campaign_id=campaign.id) }}" 
+                                           class="btn btn-outline-primary" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        {% if campaign.status == 'failed' %}
+                                            <form method="post" action="{{ url_for('retry_campaign', campaign_id=campaign.id) }}" 
+                                                  class="d-inline" onsubmit="return confirm('Retry this campaign?')">
+                                                <button type="submit" class="btn btn-outline-warning" title="Retry">
+                                                    <i class="fas fa-redo"></i>
+                                                </button>
+                                            </form>
+                                        {% endif %}
+                                        <div class="dropdown">
+                                            <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
+                                                    data-bs-toggle="dropdown">
+                                                <i class="fas fa-ellipsis-v"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ url_for('export_campaign', campaign_id=campaign.id, format='csv') }}">
+                                                        <i class="fas fa-file-csv me-2"></i>Export CSV
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ url_for('export_campaign', campaign_id=campaign.id, format='json') }}">
+                                                        <i class="fas fa-file-code me-2"></i>Export JSON
+                                                    </a>
+                                                </li>
+                                                <li><hr class="dropdown-divider"></li>
+                                                <li>
+                                                    <form method="post" action="{{ url_for('delete_campaign', campaign_id=campaign.id) }}" 
+                                                          class="d-inline" onsubmit="return confirm('Delete this campaign permanently?')">
+                                                        <button type="submit" class="dropdown-item text-danger">
+                                                            <i class="fas fa-trash me-2"></i>Delete
+                                                        </button>
+                                                    </form>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Campaign Statistics -->
+<div class="row mt-4">
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-check-circle fa-2x text-success mb-2"></i>
+                <h5>{{ campaigns|selectattr('status', 'equalto', 'completed')|list|length }}</h5>
+                <p class="text-muted mb-0">Completed</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-spinner fa-2x text-warning mb-2"></i>
+                <h5>{{ campaigns|selectattr('status', 'equalto', 'processing')|list|length }}</h5>
+                <p class="text-muted mb-0">Processing</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-clock fa-2x text-secondary mb-2"></i>
+                <h5>{{ campaigns|selectattr('status', 'equalto', 'pending')|list|length }}</h5>
+                <p class="text-muted mb-0">Pending</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 mb-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <i class="fas fa-times-circle fa-2x text-danger mb-2"></i>
+                <h5>{{ campaigns|selectattr('status', 'equalto', 'failed')|list|length }}</h5>
+                <p class="text-muted mb-0">Failed</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% else %}
+<!-- Empty State -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-tasks fa-4x text-muted mb-4"></i>
+                <h3>No Campaigns Yet</h3>
+                <p class="text-muted mb-4">
+                    Get started by creating your first ping campaign to accelerate your backlink indexing.
+                </p>
+                <a href="{{ url_for('bulk_upload') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-plus me-2"></i>Create Your First Campaign
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Campaign filtering
+document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('[data-filter]');
+    const campaignRows = document.querySelectorAll('.campaign-row');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+            
+            // Update active button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Filter campaigns
+            campaignRows.forEach(row => {
+                const status = row.getAttribute('data-status');
+                if (filter === 'all' || status === filter) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    });
+});
+
+// Auto-refresh processing campaigns
+setInterval(function() {
+    const processingRows = document.querySelectorAll('.campaign-row[data-status="processing"]');
+    if (processingRows.length > 0) {
+        location.reload();
+    }
+}, 10000); // Refresh every 10 seconds if there are processing campaigns
+</script>
+{% endblock %}
