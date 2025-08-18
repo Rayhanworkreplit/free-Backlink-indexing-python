@@ -597,8 +597,8 @@ def start_live_campaign():
         if not urls:
             return jsonify({'error': 'No URLs provided'}), 400
         
-        # Validate URLs
-        valid_urls = [url for url in urls if url_validator.is_valid(url)]
+        # Validate URLs  
+        valid_urls = [url for url in urls if url_validator.is_valid_url(url)]
         if not valid_urls:
             return jsonify({'error': 'No valid URLs provided'}), 400
         
@@ -689,5 +689,15 @@ def simple_progress_test():
         return render_template('simple_progress_test.html')
     except Exception as e:
         logger.error(f"Error loading simple progress test page: {str(e)}")
+        flash(f"Error loading page: {str(e)}", 'error')
+        return redirect(url_for('index'))
+
+@app.route('/test-live-progress')
+def test_live_progress():
+    """Test live progress page"""
+    try:
+        return render_template('test_live_progress.html')
+    except Exception as e:
+        logger.error(f"Error loading test live progress page: {str(e)}")
         flash(f"Error loading page: {str(e)}", 'error')
         return redirect(url_for('index'))

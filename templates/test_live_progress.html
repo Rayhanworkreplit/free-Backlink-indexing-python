@@ -1,0 +1,372 @@
+{% extends "base.html" %}
+
+{% block title %}Test Live Progress - Free Ping Indexer Pro{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1>Live Progress Test</h1>
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle me-2"></i>
+                This is a direct test of the live progress tracking system.
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5>Start Live Campaign</h5>
+                </div>
+                <div class="card-body">
+                    <button id="start-campaign" class="btn btn-success btn-lg w-100">
+                        <i class="fas fa-rocket me-2"></i>Start Live Progress Campaign
+                    </button>
+                    <div id="campaign-status" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>System Status</h5>
+                </div>
+                <div class="card-body">
+                    <div id="system-status">Loading...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Progress Container -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div id="live-progress-display"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentCampaign = null;
+let progressPoller = null;
+
+document.addEventListener('DOMContentLoaded', function() {
+    loadSystemStatus();
+    
+    document.getElementById('start-campaign').addEventListener('click', function() {
+        startLiveCampaign();
+    });
+});
+
+async function loadSystemStatus() {
+    try {
+        const response = await fetch('/api/service-categories');
+        const data = await response.json();
+        
+        document.getElementById('system-status').innerHTML = `
+            <div class="text-center">
+                <div class="h2 text-success mb-0">${data.stats ? data.stats.total : 0}</div>
+                <small class="text-muted">Total Services</small>
+            </div>
+            <hr>
+            <div class="small">
+                <div>Categories: ${data.categories ? data.categories.length : 0}</div>
+                <div>Status: <span class="text-success">Ready</span></div>
+            </div>
+        `;
+    } catch (error) {
+        document.getElementById('system-status').innerHTML = `
+            <div class="text-danger">Error: ${error.message}</div>
+        `;
+    }
+}
+
+async function startLiveCampaign() {
+    const button = document.getElementById('start-campaign');
+    const status = document.getElementById('campaign-status');
+    
+    // Disable button and show loading
+    button.disabled = true;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Starting Campaign...';
+    
+    const campaignData = {
+        urls: [
+            'https://example.com',
+            'https://httpbin.org/status/200'
+        ],
+        categories: ['modern_ping_services', 'seo_tools']
+    };
+    
+    try {
+        console.log('Starting campaign with data:', campaignData);
+        
+        const response = await fetch('/api/start-live-campaign', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(campaignData)
+        });
+        
+        const result = await response.json();
+        console.log('Campaign start result:', result);
+        
+        if (result.success) {
+            currentCampaign = result.campaign_id;
+            
+            status.innerHTML = `
+                <div class="alert alert-success">
+                    <h6>Campaign Started Successfully!</h6>
+                    <div>Campaign ID: <code>${result.campaign_id}</code></div>
+                    <div>URLs: ${result.total_urls} | Services: ${result.total_services}</div>
+                    <div>Total Pings: ${result.total_pings}</div>
+                </div>
+            `;
+            
+            // Show progress display
+            createProgressDisplay(result);
+            
+            // Start polling for updates
+            startProgressPolling();
+            
+        } else {
+            status.innerHTML = `
+                <div class="alert alert-danger">
+                    <strong>Error:</strong> ${result.error}
+                </div>
+            `;
+            resetButton();
+        }
+        
+    } catch (error) {
+        console.error('Campaign start error:', error);
+        status.innerHTML = `
+            <div class="alert alert-danger">
+                <strong>Network Error:</strong> ${error.message}
+            </div>
+        `;
+        resetButton();
+    }
+}
+
+function createProgressDisplay(campaignData) {
+    const container = document.getElementById('live-progress-display');
+    container.innerHTML = `
+        <div class="card border-success">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-broadcast-tower me-2"></i>
+                    Live Progress - ${campaignData.campaign_id}
+                </h5>
+            </div>
+            <div class="card-body">
+                <!-- Main Progress Bar -->
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="mb-0">Overall Progress</h6>
+                        <span id="progress-percentage" class="badge bg-primary">0%</span>
+                    </div>
+                    <div class="progress" style="height: 25px;">
+                        <div id="main-progress-bar" 
+                             class="progress-bar progress-bar-striped progress-bar-animated bg-success" 
+                             role="progressbar" 
+                             style="width: 0%" 
+                             aria-valuenow="0" 
+                             aria-valuemin="0" 
+                             aria-valuemax="100">
+                            <span class="fw-bold">0%</span>
+                        </div>
+                    </div>
+                    <div class="small text-muted mt-1">
+                        <span id="progress-details">0 of ${campaignData.total_pings} pings completed</span>
+                    </div>
+                </div>
+
+                <!-- Current Status -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Current Activity</h6>
+                        <div id="current-activity" class="card bg-light">
+                            <div class="card-body py-2">
+                                <div id="current-service">
+                                    <i class="fas fa-clock me-2"></i>Initializing...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Live Statistics</h6>
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body py-2">
+                                        <div id="success-count" class="h5 mb-0">0</div>
+                                        <small>Success</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="card bg-danger text-white">
+                                    <div class="card-body py-2">
+                                        <div id="failed-count" class="h5 mb-0">0</div>
+                                        <small>Failed</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="card bg-info text-white">
+                                    <div class="card-body py-2">
+                                        <div id="rate-display" class="h5 mb-0">0%</div>
+                                        <small>Success Rate</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Control Buttons -->
+                <div class="text-center mt-4">
+                    <button id="stop-campaign" class="btn btn-warning">
+                        <i class="fas fa-stop me-2"></i>Stop Campaign
+                    </button>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Add stop button functionality
+    document.getElementById('stop-campaign').addEventListener('click', stopCampaign);
+}
+
+function startProgressPolling() {
+    if (!currentCampaign) return;
+    
+    console.log('Starting progress polling for:', currentCampaign);
+    
+    progressPoller = setInterval(async () => {
+        try {
+            const response = await fetch(`/api/campaign-progress/${currentCampaign}`);
+            
+            if (!response.ok) {
+                console.log('Campaign not found or completed');
+                stopProgressPolling();
+                return;
+            }
+            
+            const data = await response.json();
+            console.log('Progress update:', data);
+            
+            updateProgressDisplay(data);
+            
+            if (data.status === 'completed') {
+                stopProgressPolling();
+                showCompletedState();
+            }
+            
+        } catch (error) {
+            console.error('Progress polling error:', error);
+        }
+    }, 1000); // Poll every second
+}
+
+function updateProgressDisplay(data) {
+    // Update progress bar
+    const progressBar = document.getElementById('main-progress-bar');
+    const progressPercentage = document.getElementById('progress-percentage');
+    const progressDetails = document.getElementById('progress-details');
+    
+    if (progressBar && data.percentage !== undefined) {
+        const percentage = Math.round(data.percentage * 10) / 10; // Round to 1 decimal
+        progressBar.style.width = `${percentage}%`;
+        progressBar.setAttribute('aria-valuenow', percentage);
+        progressBar.innerHTML = `<span class="fw-bold">${percentage}%</span>`;
+        
+        if (progressPercentage) {
+            progressPercentage.textContent = `${percentage}%`;
+        }
+        
+        if (progressDetails) {
+            progressDetails.textContent = `${data.processed || 0} of ${data.total || 0} pings completed`;
+        }
+    }
+    
+    // Update current service
+    const currentService = document.getElementById('current-service');
+    if (currentService && data.current_service) {
+        const serviceName = extractDomain(data.current_service);
+        currentService.innerHTML = `
+            <i class="fas fa-paper-plane me-2 text-primary"></i>
+            <strong>${serviceName}</strong>
+            <br><small class="text-muted">${data.current_service}</small>
+        `;
+    }
+    
+    // Update statistics
+    const successCount = document.getElementById('success-count');
+    const failedCount = document.getElementById('failed-count');
+    const rateDisplay = document.getElementById('rate-display');
+    
+    if (successCount) successCount.textContent = data.successful || 0;
+    if (failedCount) failedCount.textContent = data.failed || 0;
+    if (rateDisplay) rateDisplay.textContent = `${data.success_rate || 0}%`;
+}
+
+function extractDomain(url) {
+    try {
+        return new URL(url).hostname.replace('www.', '');
+    } catch {
+        return 'Service';
+    }
+}
+
+function showCompletedState() {
+    const header = document.querySelector('#live-progress-display .card-header');
+    if (header) {
+        header.className = 'card-header bg-success text-white';
+        header.innerHTML = `
+            <h5 class="mb-0">
+                <i class="fas fa-check-circle me-2"></i>
+                Campaign Completed!
+            </h5>
+        `;
+    }
+    
+    const progressBar = document.getElementById('main-progress-bar');
+    if (progressBar) {
+        progressBar.classList.remove('progress-bar-animated');
+    }
+    
+    resetButton();
+}
+
+function stopProgressPolling() {
+    if (progressPoller) {
+        clearInterval(progressPoller);
+        progressPoller = null;
+        console.log('Progress polling stopped');
+    }
+}
+
+function stopCampaign() {
+    stopProgressPolling();
+    currentCampaign = null;
+    resetButton();
+    
+    document.getElementById('live-progress-display').innerHTML = `
+        <div class="alert alert-warning">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            Campaign stopped by user.
+        </div>
+    `;
+}
+
+function resetButton() {
+    const button = document.getElementById('start-campaign');
+    button.disabled = false;
+    button.innerHTML = '<i class="fas fa-rocket me-2"></i>Start Live Progress Campaign';
+}
+</script>
+{% endblock %}
