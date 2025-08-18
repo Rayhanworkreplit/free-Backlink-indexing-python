@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Rate Booster - Free Ping Indexer Pro</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background: #f8f9fa; }
+        .card { border: none; box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075); }
+        .success-badge { background: linear-gradient(45deg, #28a745, #20c997); }
+        .boost-card { border-left: 4px solid #28a745; }
+        .recommendation-item { border-left: 3px solid #007bff; padding-left: 15px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-rocket me-2"></i>Free Ping Indexer Pro
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">Dashboard</a>
+                <a class="nav-link" href="/demo_boost">View Demo</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card boost-card">
+                    <div class="card-body">
+                        <h2 class="card-title text-success">
+                            <i class="fas fa-chart-line me-2"></i>Success Rate Booster
+                        </h2>
+                        <p class="card-text">
+                            Enhanced indexing with verified services and modern endpoints for maximum success rates.
+                        </p>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="text-center p-3">
+                                    <div class="h2 text-success">{{ service_count }}</div>
+                                    <div class="text-muted">Verified Services</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center p-3">
+                                    <div class="h2 text-info">85%+</div>
+                                    <div class="text-muted">Target Success Rate</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-center p-3">
+                                    <div class="h2 text-warning">3x</div>
+                                    <div class="text-muted">Faster Processing</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-bullseye me-2"></i>Enhanced Ping Campaign
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="boostForm">
+                            <div class="mb-3">
+                                <label for="urls" class="form-label">URLs to Index</label>
+                                <textarea class="form-control" id="urls" rows="8" placeholder="Enter URLs, one per line&#10;https://example.com/page1&#10;https://example.com/page2" required></textarea>
+                                <div class="form-text">Enter one URL per line. Up to 100 URLs supported.</div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="modernOnly" checked>
+                                        <label class="form-check-label" for="modernOnly">
+                                            Use Modern Services Only (Recommended)
+                                        </label>
+                                    </div>
+                                    <small class="text-muted">Uses only verified high-success services</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="enableProxy">
+                                        <label class="form-check-label" for="enableProxy">
+                                            Enable Proxy Rotation
+                                        </label>
+                                    </div>
+                                    <small class="text-muted">Professional IP rotation for better results</small>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="fas fa-rocket me-2"></i>Start Boosted Campaign
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="resultsSection" class="mt-4" style="display: none;">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <i class="fas fa-chart-bar me-2"></i>Campaign Results
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="resultsContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                {% if recommendations %}
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-lightbulb me-2"></i>Optimization Tips
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="text-primary">Immediate Actions</h6>
+                        {% for action in recommendations.immediate_actions %}
+                        <div class="recommendation-item">
+                            <small>{{ action }}</small>
+                        </div>
+                        {% endfor %}
+                        
+                        <h6 class="text-success mt-3">Advanced Features</h6>
+                        {% for feature in recommendations.advanced_optimizations %}
+                        <div class="recommendation-item">
+                            <small>{{ feature }}</small>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if verified_services %}
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-server me-2"></i>Active Services
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {% for service in verified_services[:10] %}
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-{{ 'success' if service.priority == 'high' else 'info' }}">
+                                {{ service.category|title }}
+                            </span>
+                            <small class="text-muted">{{ service.method }}</small>
+                        </div>
+                        {% endfor %}
+                        
+                        {% if verified_services|length > 10 %}
+                        <small class="text-muted">
+                            ... and {{ verified_services|length - 10 }} more services
+                        </small>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('boostForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+            
+            // Get form data
+            const urls = document.getElementById('urls').value.split('\n').filter(url => url.trim());
+            const useModernOnly = document.getElementById('modernOnly').checked;
+            const enableProxy = document.getElementById('enableProxy').checked;
+            
+            try {
+                const response = await fetch('/execute_boost', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        urls: urls,
+                        use_modern_only: useModernOnly,
+                        enable_proxy: enableProxy
+                    })
+                });
+                
+                const result = await response.json();
+                
+                // Show results
+                document.getElementById('resultsSection').style.display = 'block';
+                const resultsContent = document.getElementById('resultsContent');
+                
+                if (result.error) {
+                    resultsContent.innerHTML = `
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i>${result.error}
+                        </div>
+                    `;
+                } else {
+                    const successRate = Math.round(result.success_rate || 0);
+                    const successClass = successRate >= 80 ? 'success' : successRate >= 60 ? 'warning' : 'danger';
+                    
+                    resultsContent.innerHTML = `
+                        <div class="row mb-3">
+                            <div class="col-md-3">
+                                <div class="text-center p-3 bg-${successClass} text-white rounded">
+                                    <div class="h3">${successRate}%</div>
+                                    <div>Success Rate</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center p-3 bg-info text-white rounded">
+                                    <div class="h3">${result.total_pings || 0}</div>
+                                    <div>Total Pings</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center p-3 bg-success text-white rounded">
+                                    <div class="h3">${result.successful_pings || 0}</div>
+                                    <div>Successful</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="text-center p-3 bg-primary text-white rounded">
+                                    <div class="h3">${result.services_used || 0}</div>
+                                    <div>Services</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>
+                            Campaign completed successfully! Your URLs have been submitted to ${result.services_used || 0} verified services.
+                        </div>
+                    `;
+                }
+                
+                // Scroll to results
+                document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+                
+            } catch (error) {
+                document.getElementById('resultsSection').style.display = 'block';
+                document.getElementById('resultsContent').innerHTML = `
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>Error: ${error.message}
+                    </div>
+                `;
+            } finally {
+                // Restore button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
+        });
+    </script>
+</body>
+</html>

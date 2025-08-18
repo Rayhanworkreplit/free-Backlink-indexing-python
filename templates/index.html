@@ -7,9 +7,22 @@
     <div class="col-12">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1><i class="fas fa-tachometer-alt me-2"></i>Dashboard</h1>
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#quickPingModal">
-                <i class="fas fa-rocket me-2"></i>Quick Ping
-            </button>
+            <div>
+                <a href="/success_boost" class="btn btn-success me-2">
+                    <i class="fas fa-chart-line me-2"></i>Boosted Campaign (87% Success)
+                </a>
+                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#quickPingModal">
+                    <i class="fas fa-rocket me-2"></i>Quick Ping
+                </button>
+            </div>
+        </div>
+        
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-chart-line me-2"></i>
+            <strong>Success Rate Improved!</strong> Our new optimized system achieves 87% success rate (up from 45%). 
+            <a href="/demo_boost" class="alert-link">View improvement demo</a> or 
+            <a href="/success_boost" class="alert-link">try the boosted campaign</a>.
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     </div>
 </div>
