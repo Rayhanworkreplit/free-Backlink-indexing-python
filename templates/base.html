@@ -68,6 +68,9 @@
                             <li><a class="dropdown-item" href="{{ url_for('system_status') }}">
                                 <i class="fas fa-info-circle me-2"></i>System Status
                             </a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('live_progress') }}">
+                                <i class="fas fa-tachometer-alt me-2"></i>Live Progress Demo
+                            </a></li>
                         </ul>
                     </li>
                 </ul>
@@ -112,6 +115,7 @@
     
     <!-- Custom JavaScript -->
     <script src="{{ url_for('static', filename='js/ping_monitor.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/progress_tracker.js') }}"></script>
     
     {% block extra_js %}{% endblock %}
 </body>

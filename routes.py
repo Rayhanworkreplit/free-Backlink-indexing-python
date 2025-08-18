@@ -4,6 +4,8 @@ from flask import render_template, request, redirect, url_for, flash, jsonify, m
 from app import app
 from modules.url_manager import URLManager
 from modules.ping_services import PingServices
+from modules.enhanced_ping_services import EnhancedPingServices
+from modules.live_progress import live_progress_tracker
 from modules.reporting import ReportingManager
 from modules.success_booster import SuccessRateBooster
 from modules.modern_services import ModernPingServices
@@ -22,12 +24,16 @@ logger = logging.getLogger(__name__)
 # Initialize managers
 url_manager = URLManager()
 ping_services = PingServices()
+enhanced_ping_services = EnhancedPingServices()
 reporting_manager = ReportingManager()
 ping_scheduler = PingScheduler()
 file_manager = FileManager()
 url_validator = URLValidator()
 success_booster = SuccessRateBooster()
 modern_services = ModernPingServices()
+
+# Store campaign progress data
+campaign_progress = {}
 
 # Start the scheduler
 ping_scheduler.start_scheduler()
@@ -554,3 +560,124 @@ def demo_boost():
     except Exception as e:
         logger.error(f"Error loading demo: {str(e)}")
         return render_template('demo_boost.html', demo_data={}, error=str(e))
+
+# API Endpoints for Live Progress Tracking
+
+@app.route('/api/campaign-progress/<campaign_id>')
+def get_campaign_progress(campaign_id):
+    """Get real-time progress for a campaign"""
+    try:
+        progress_data = live_progress_tracker.get_campaign_progress(campaign_id)
+        if progress_data:
+            return jsonify(progress_data)
+        else:
+            return jsonify({'error': 'Campaign not found'}), 404
+    except Exception as e:
+        logger.error(f"Error fetching progress for campaign {campaign_id}: {str(e)}")
+        return jsonify({'error': 'Internal server error'}), 500
+
+@app.route('/api/active-campaigns')
+def get_active_campaigns():
+    """Get list of all active campaigns"""
+    try:
+        campaigns = live_progress_tracker.get_all_active_campaigns()
+        return jsonify(campaigns)
+    except Exception as e:
+        logger.error(f"Error fetching active campaigns: {str(e)}")
+        return jsonify({'error': 'Internal server error'}), 500
+
+@app.route('/api/start-live-campaign', methods=['POST'])
+def start_live_campaign():
+    """Start a campaign with live progress tracking"""
+    try:
+        data = request.get_json()
+        urls = data.get('urls', [])
+        categories = data.get('categories', ['google_services', 'modern_ping_services', 'seo_tools'])
+        
+        if not urls:
+            return jsonify({'error': 'No URLs provided'}), 400
+        
+        # Validate URLs
+        valid_urls = [url for url in urls if url_validator.is_valid(url)]
+        if not valid_urls:
+            return jsonify({'error': 'No valid URLs provided'}), 400
+        
+        # Get services for selected categories
+        services = enhanced_ping_services.get_services_by_category(categories)
+        total_pings = len(valid_urls) * len(services)
+        
+        # Generate campaign ID
+        import time
+        campaign_id = f"live_{int(time.time())}"
+        
+        # Start progress tracking
+        live_progress_tracker.start_campaign(campaign_id, len(services), len(valid_urls))
+        
+        # Execute pings in background with progress updates
+        def execute_with_progress():
+            try:
+                for url in valid_urls:
+                    for service in services:
+                        # Get service category for appropriate timeout
+                        category = enhanced_ping_services._get_service_category(service)
+                        
+                        # Execute actual ping
+                        result = enhanced_ping_services._ping_single_service(url, service, category)
+                        
+                        if result:
+                            success = result.get('success', False)
+                            response_time = result.get('response_time', 0)
+                            
+                            # Update progress
+                            live_progress_tracker.update_progress(campaign_id, service, url, success, response_time)
+                
+                # Mark as complete
+                live_progress_tracker.complete_campaign(campaign_id)
+                
+            except Exception as e:
+                logger.error(f"Error in live campaign execution: {str(e)}")
+        
+        # Start background execution
+        thread = threading.Thread(target=execute_with_progress)
+        thread.daemon = True
+        thread.start()
+        
+        return jsonify({
+            'success': True,
+            'campaign_id': campaign_id,
+            'total_services': len(services),
+            'total_urls': len(valid_urls),
+            'total_pings': total_pings,
+            'message': f'Started live campaign with {len(valid_urls)} URLs and {len(services)} services'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error starting live campaign: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/api/service-categories')
+def get_service_categories():
+    """Get available service categories"""
+    try:
+        categories = enhanced_ping_services.get_service_categories()
+        stats = enhanced_ping_services.get_service_stats()
+        
+        return jsonify({
+            'categories': categories,
+            'stats': stats,
+            'total_services': sum(stats.values()) if isinstance(stats, dict) else 0
+        })
+        
+    except Exception as e:
+        logger.error(f"Error fetching service categories: {str(e)}")
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/live-progress')
+def live_progress():
+    """Live progress demo page"""
+    try:
+        return render_template('live_progress.html')
+    except Exception as e:
+        logger.error(f"Error loading live progress page: {str(e)}")
+        flash(f"Error loading page: {str(e)}", 'error')
+        return redirect(url_for('index'))

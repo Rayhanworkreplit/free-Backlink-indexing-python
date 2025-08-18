@@ -10,7 +10,7 @@ import time
 import random
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from typing import Dict, List, Set, Tuple
+from typing import Dict, List, Set, Tuple, Optional
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +53,7 @@ class EnhancedPingServices:
         """Get all available service categories"""
         return list(self.all_services.keys())
         
-    def get_services_by_category(self, categories: List[str] = None) -> List[str]:
+    def get_services_by_category(self, categories: Optional[List[str]] = None) -> List[str]:
         """Get services from specific categories"""
         if categories is None:
             categories = self.get_service_categories()
@@ -73,7 +73,7 @@ class EnhancedPingServices:
         stats['total'] = sum(stats.values())
         return stats
         
-    def ping_urls_enhanced(self, urls: List[str], selected_categories: List[str] = None) -> Dict:
+    def ping_urls_enhanced(self, urls: List[str], selected_categories: Optional[List[str]] = None) -> Dict:
         """Enhanced ping function with better performance and reporting"""
         if not urls:
             return {'success': False, 'message': 'No URLs provided'}
@@ -271,3 +271,70 @@ class EnhancedPingServices:
         }
         
         return recommendations.get(campaign_type, recommendations['general'])
+    
+    def _get_service_category(self, service: str) -> str:
+        """Get the category of a specific service"""
+        for category, services in self.all_services.items():
+            if service in services:
+                return category
+        return 'unknown'
+    
+    def _ping_single_service(self, url: str, service: str, category: str) -> Dict:
+        """Ping a single service and return detailed result"""
+        timeout = self.timeout_settings.get(category, 10)
+        
+        for attempt in range(self.retry_attempts):
+            try:
+                # Prepare the ping request
+                data = self._prepare_ping_data(url, service)
+                headers = self._get_ping_headers(service)
+                
+                start_time = time.time()
+                response = requests.post(
+                    service,
+                    data=data,
+                    headers=headers,
+                    timeout=timeout,
+                    verify=False  # Some services have SSL issues
+                )
+                response_time = time.time() - start_time
+                
+                success = response.status_code == 200
+                
+                return {
+                    'url': url,
+                    'service': service,
+                    'category': category,
+                    'success': success,
+                    'status_code': response.status_code,
+                    'response_time': response_time,
+                    'attempt': attempt + 1,
+                    'timestamp': datetime.now().isoformat()
+                }
+                
+            except Exception as e:
+                if attempt == self.retry_attempts - 1:  # Last attempt
+                    return {
+                        'url': url,
+                        'service': service,
+                        'category': category,
+                        'success': False,
+                        'error': str(e),
+                        'response_time': 0,
+                        'attempt': attempt + 1,
+                        'timestamp': datetime.now().isoformat()
+                    }
+                else:
+                    # Wait before retry with exponential backoff
+                    wait_time = self.backoff_factor ** attempt + random.uniform(0, 1)
+                    time.sleep(wait_time)
+                    
+        return {
+            'url': url,
+            'service': service,
+            'category': category,
+            'success': False,
+            'error': 'Max retries exceeded',
+            'response_time': 0,
+            'timestamp': datetime.now().isoformat()
+        }
