@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: free-ping-indexer-pro
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 main:app"
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: PYTHONPATH
+        value: /opt/render/project/src
+      - key: SESSION_SECRET
+        generateValue: true
+    healthCheckPath: /
+    
+databases:
+  - name: free-ping-indexer-db
+    databaseName: pingindexer
+    user: pinguser
+    plan: free
