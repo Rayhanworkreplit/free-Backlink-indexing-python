@@ -73,7 +73,7 @@ class PingMonitor {
     checkForActiveCampaigns() {
         // Check if there are any processing campaigns on page load
         const processingCampaigns = document.querySelectorAll('[data-status="processing"]');
-        if (processingCampaigns.length > 0) {
+        if (processingCampaigns.length > 0 && !this.isMonitoring) {
             this.startMonitoring();
             
             // Auto-enable monitoring toggle if it exists

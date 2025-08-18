@@ -5,6 +5,7 @@ import io
 from datetime import datetime
 from config import Config
 from utils.validators import URLValidator
+from modules.webhook_manager import WebhookManager
 import logging
 
 logger = logging.getLogger(__name__)
@@ -13,6 +14,7 @@ class URLManager:
     def __init__(self):
         self.config = Config()
         self.validator = URLValidator()
+        self.webhook_manager = WebhookManager()
         self.campaigns_file = os.path.join(self.config.DATA_DIR, 'campaigns.json')
         self.results_file = os.path.join(self.config.DATA_DIR, 'ping_results.json')
     
@@ -104,6 +106,15 @@ class URLManager:
                 
                 self.save_campaigns(campaigns)
                 logger.info(f"Updated campaign {campaign_id} status to {status}")
+                
+                # Send webhook notification for completed campaigns
+                if status == 'completed' and results:
+                    try:
+                        self.webhook_manager.send_hashnode_notification(
+                            campaign_id, campaigns[campaign_id], results
+                        )
+                    except Exception as webhook_error:
+                        logger.warning(f"Webhook notification failed: {str(webhook_error)}")
             
         except Exception as e:
             logger.error(f"Error updating campaign status: {str(e)}")

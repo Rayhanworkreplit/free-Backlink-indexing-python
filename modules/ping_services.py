@@ -5,12 +5,14 @@ import time
 import threading
 from datetime import datetime
 from config import Config
+from modules.webhook_manager import WebhookManager
 
 logger = logging.getLogger(__name__)
 
 class PingServices:
     def __init__(self):
         self.config = Config()
+        self.webhook_manager = WebhookManager()
         self.load_ping_services()
     
     def load_ping_services(self):

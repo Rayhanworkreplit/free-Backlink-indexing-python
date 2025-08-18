@@ -272,6 +272,28 @@ def quick_ping():
         flash(f"Error with quick ping: {str(e)}", 'error')
         return redirect(url_for('index'))
 
+@app.route('/webhooks')
+def webhooks():
+    """Webhook management page"""
+    try:
+        # Get webhook status from ping services
+        webhook_status = ping_services.webhook_manager.get_webhook_status()
+        return render_template('webhooks.html', webhook_status=webhook_status)
+    except Exception as e:
+        logger.error(f"Error loading webhooks page: {str(e)}")
+        flash(f"Error loading webhooks page: {str(e)}", 'error')
+        return redirect(url_for('index'))
+
+@app.route('/test-webhook', methods=['POST'])
+def test_webhook():
+    """Test webhook connection"""
+    try:
+        result = ping_services.webhook_manager.test_webhook_connection('hashnode')
+        return jsonify(result)
+    except Exception as e:
+        logger.error(f"Error testing webhook: {str(e)}")
+        return jsonify({'success': False, 'error': str(e)})
+
 @app.route('/export-data')
 def export_data():
     """Export data page"""

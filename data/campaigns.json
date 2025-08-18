@@ -1,1 +1,1694 @@
-{}
+{
+  "campaign_20250818_084503": {
+    "id": "campaign_20250818_084503",
+    "name": "keylink",
+    "urls": [
+      "https://keylinkbh.com/dependent-visas-in-bahrain/",
+      "https://keylinkbh.com/document-clearance-in-bahrain/",
+      "https://keylinkbh.com/family-visa-in-bahrain/",
+      "https://keylinkbh.com/financial-and-tax-benefits-in-bahrain/",
+      "https://keylinkbh.com/foreign-company-branch-in-bahrain/",
+      "https://keylinkbh.com/free-zones-in-bahrain/",
+      "https://keylinkbh.com/golden-visa-in-bahrain/",
+      "https://keylinkbh.com/how-to-start-a-business-in-bahrain/",
+      "https://keylinkbh.com/explore-lucrative-investment-opportunities-in-bahrain/",
+      "https://keylinkbh.com/investor-visa-in-bahrain/",
+      "https://keylinkbh.com/labour-registration-in-bahrain/",
+      "https://keylinkbh.com/lease-contract-registration-in-bahrain/",
+      "https://keylinkbh.com/license-renewal-in-bahrain/",
+      "https://keylinkbh.com/local-sponsorship-in-bahrain/",
+      "https://keylinkbh.com/marketing-agency-bahrain/",
+      "https://keylinkbh.com/memorandum-of-association-in-bahrain/",
+      "https://keylinkbh.com/professional-visa-consultants-in-bahrain/",
+      "https://keylinkbh.com/single-person-company-in-bahrain/",
+      "https://keylinkbh.com/starting-a-business-in-bahrain/",
+      "https://keylinkbh.com/setting-up-a-company-in-bahrain/"
+    ],
+    "invalid_urls": [],
+    "ping_methods": [
+      "rss",
+      "sitemap",
+      "archive",
+      "directories"
+    ],
+    "status": "completed",
+    "created_date": "2025-08-18T08:45:03.245971",
+    "total_urls": 20,
+    "processed_urls": 20,
+    "successful_pings": 88,
+    "failed_pings": 212,
+    "results": {
+      "campaign_id": "campaign_20250818_084503",
+      "urls_count": 20,
+      "timestamp": "2025-08-18T08:45:03.250886",
+      "rss_pings": {
+        "general": {
+          "http://pingomatic.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "\n\nNo blog URL?",
+            "timestamp": "2025-08-18T08:45:03.411360"
+          },
+          "http://www.feedsubmitter.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<!DOCTYPE html>\n<html data-adblockkey=\"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALquDFETXRn0Hr05fUP7EJT77xYnPmRbpMy4vk8KYiHnkNpednjOANJcaXDXcKQJN0nXKZJL7TciJD8AoHXK158CAwEAAQ==_eGzDT1qmd2czP/o/tgmqZT/lPbXDGMGs",
+            "timestamp": "2025-08-18T08:45:04.031596"
+          },
+          "http://www.pingler.com/ping/": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:05.366064"
+          },
+          "http://www.blogpeople.net/ping/": {
+            "success": false,
+            "status_code": 500,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:07.476238"
+          },
+          "http://rpc.technorati.com/rpc/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rpc.technorati.com', port=80): Max retries exceeded with url: /rpc/ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317770e6d0>: Failed to resolve 'rpc.technorati.com' ([Errno -5] No address associated with hostname)\"))",
+            "timestamp": "2025-08-18T08:45:07.979783"
+          },
+          "http://www.blogflux.com/ping/": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:09.365510"
+          },
+          "http://www.syndic8.com/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='www.syndic8.com', port=80): Max retries exceeded with url: /ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f3177712f10>: Failed to resolve 'www.syndic8.com' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:45:09.892460"
+          },
+          "http://xping.pubsub.com/ping/": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='xping.pubsub.com', port=80): Max retries exceeded with url: /ping/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f31777462d0>: Failed to establish a new connection: [Errno 111] Connection refused'))",
+            "timestamp": "2025-08-18T08:45:10.396298"
+          },
+          "http://www.feedshark.brainbliss.com/ping/": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:11.158367"
+          },
+          "http://www.newsisfree.com/RPCCloud": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:11.717209"
+          },
+          "http://ping.blo.gs/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n   \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<",
+            "timestamp": "2025-08-18T08:45:12.464029"
+          },
+          "http://rpc.weblogs.com/RPC2": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rpc.weblogs.com', port=80): Max retries exceeded with url: /RPC2 (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317771e090>: Failed to resolve 'rpc.weblogs.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:45:13.504350"
+          },
+          "http://rcs.datashed.net/RPC2/": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rcs.datashed.net', port=80): Max retries exceeded with url: /RPC2/ (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317771c050>: Failed to resolve 'rcs.datashed.net' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:45:14.065964"
+          },
+          "http://www.weblogalot.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<!DOCTYPE html>\n<html data-adblockkey=\"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALquDFETXRn0Hr05fUP7EJT77xYnPmRbpMy4vk8KYiHnkNpednjOANJcaXDXcKQJN0nXKZJL7TciJD8AoHXK158CAwEAAQ==_tRHjidSPQuOa/bE1rFHPno4jkOXZjase",
+            "timestamp": "2025-08-18T08:45:14.684747"
+          },
+          "http://blo.gs/ping.php": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n   \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<",
+            "timestamp": "2025-08-18T08:45:15.232569"
+          },
+          "http://www.popdex.com/addsite": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:16.027594"
+          },
+          "http://www.blogdigger.com/RPC2": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:16.868891"
+          },
+          "http://www.blogstreet.com/xrbin/xmlrpc.cgi": {
+            "success": false,
+            "status_code": 405,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:17.632994"
+          },
+          "http://bulkpingtool.com/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='bulkpingtool.com', port=80): Max retries exceeded with url: /ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317771d890>: Failed to resolve 'bulkpingtool.com' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:45:18.149117"
+          },
+          "http://www.blogshares.com/rpc.php": {
+            "success": false,
+            "status_code": 429,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:18.978715"
+          },
+          "https://feedburner.google.com/fb/a/ping": {
+            "success": false,
+            "status_code": 400,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:19.503262"
+          },
+          "https://blogsearch.google.com/ping": {
+            "success": false,
+            "status_code": 405,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:20.068748"
+          },
+          "https://pubsubhubbub.appspot.com/publish": {
+            "success": false,
+            "status_code": 400,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:20.594273"
+          }
+        },
+        "tech": {
+          "http://pingomatic.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "\n\nNo blog URL?",
+            "timestamp": "2025-08-18T08:45:21.208945"
+          },
+          "http://www.feedsubmitter.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<!DOCTYPE html>\n<html data-adblockkey=\"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALquDFETXRn0Hr05fUP7EJT77xYnPmRbpMy4vk8KYiHnkNpednjOANJcaXDXcKQJN0nXKZJL7TciJD8AoHXK158CAwEAAQ==_eGzDT1qmd2czP/o/tgmqZT/lPbXDGMGs",
+            "timestamp": "2025-08-18T08:45:21.875600"
+          },
+          "http://www.pingler.com/ping/": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:23.828644"
+          },
+          "http://www.blogpeople.net/ping/": {
+            "success": false,
+            "status_code": 500,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:25.862438"
+          },
+          "http://rpc.technorati.com/rpc/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rpc.technorati.com', port=80): Max retries exceeded with url: /rpc/ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f3177746890>: Failed to resolve 'rpc.technorati.com' ([Errno -5] No address associated with hostname)\"))",
+            "timestamp": "2025-08-18T08:45:26.365433"
+          },
+          "http://www.blogflux.com/ping/": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:27.010375"
+          },
+          "http://www.syndic8.com/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='www.syndic8.com', port=80): Max retries exceeded with url: /ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317771e590>: Failed to resolve 'www.syndic8.com' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:45:27.513480"
+          },
+          "http://xping.pubsub.com/ping/": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='xping.pubsub.com', port=80): Max retries exceeded with url: /ping/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f3177729e50>: Failed to establish a new connection: [Errno 111] Connection refused'))",
+            "timestamp": "2025-08-18T08:45:28.017409"
+          },
+          "http://www.feedshark.brainbliss.com/ping/": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:28.606822"
+          },
+          "http://www.newsisfree.com/RPCCloud": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:29.141769"
+          },
+          "http://ping.blo.gs/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n   \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<",
+            "timestamp": "2025-08-18T08:45:29.745884"
+          },
+          "http://rpc.weblogs.com/RPC2": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rpc.weblogs.com', port=80): Max retries exceeded with url: /RPC2 (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f3177729b90>: Failed to resolve 'rpc.weblogs.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:45:30.778255"
+          },
+          "http://rcs.datashed.net/RPC2/": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rcs.datashed.net', port=80): Max retries exceeded with url: /RPC2/ (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317d0bd210>: Failed to resolve 'rcs.datashed.net' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:45:31.330292"
+          },
+          "http://www.weblogalot.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<!DOCTYPE html>\n<html data-adblockkey=\"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALquDFETXRn0Hr05fUP7EJT77xYnPmRbpMy4vk8KYiHnkNpednjOANJcaXDXcKQJN0nXKZJL7TciJD8AoHXK158CAwEAAQ==_tRHjidSPQuOa/bE1rFHPno4jkOXZjase",
+            "timestamp": "2025-08-18T08:45:31.956144"
+          },
+          "http://blo.gs/ping.php": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n   \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<",
+            "timestamp": "2025-08-18T08:45:32.503672"
+          },
+          "http://www.popdex.com/addsite": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:33.293932"
+          },
+          "http://www.blogdigger.com/RPC2": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:34.139843"
+          },
+          "http://www.blogstreet.com/xrbin/xmlrpc.cgi": {
+            "success": false,
+            "status_code": 405,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:34.901073"
+          },
+          "http://bulkpingtool.com/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='bulkpingtool.com', port=80): Max retries exceeded with url: /ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317771df50>: Failed to resolve 'bulkpingtool.com' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:45:35.416655"
+          },
+          "http://www.blogshares.com/rpc.php": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<!doctype html>\n<html xml:lang=\"en\" lang=\"en\" >\n\n<head>\n\t<meta charset=\"utf-8\">\n\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale",
+            "timestamp": "2025-08-18T08:45:36.388265"
+          },
+          "https://feedburner.google.com/fb/a/ping": {
+            "success": false,
+            "status_code": 400,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:36.913028"
+          },
+          "https://blogsearch.google.com/ping": {
+            "success": false,
+            "status_code": 405,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:37.479780"
+          },
+          "https://pubsubhubbub.appspot.com/publish": {
+            "success": false,
+            "status_code": 400,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:38.000921"
+          }
+        },
+        "business": {
+          "http://pingomatic.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "\n\nNo blog URL?",
+            "timestamp": "2025-08-18T08:45:38.636889"
+          },
+          "http://www.feedsubmitter.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<!DOCTYPE html>\n<html data-adblockkey=\"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALquDFETXRn0Hr05fUP7EJT77xYnPmRbpMy4vk8KYiHnkNpednjOANJcaXDXcKQJN0nXKZJL7TciJD8AoHXK158CAwEAAQ==_eGzDT1qmd2czP/o/tgmqZT/lPbXDGMGs",
+            "timestamp": "2025-08-18T08:45:39.253321"
+          },
+          "http://www.pingler.com/ping/": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:40.492525"
+          },
+          "http://www.blogpeople.net/ping/": {
+            "success": false,
+            "status_code": 500,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:42.527959"
+          },
+          "http://rpc.technorati.com/rpc/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rpc.technorati.com', port=80): Max retries exceeded with url: /rpc/ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317d08bfd0>: Failed to resolve 'rpc.technorati.com' ([Errno -5] No address associated with hostname)\"))",
+            "timestamp": "2025-08-18T08:45:43.031124"
+          },
+          "http://www.blogflux.com/ping/": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:43.718666"
+          },
+          "http://www.syndic8.com/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='www.syndic8.com', port=80): Max retries exceeded with url: /ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f3177729dd0>: Failed to resolve 'www.syndic8.com' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:45:44.221670"
+          },
+          "http://xping.pubsub.com/ping/": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='xping.pubsub.com', port=80): Max retries exceeded with url: /ping/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f317770f050>: Failed to establish a new connection: [Errno 111] Connection refused'))",
+            "timestamp": "2025-08-18T08:45:44.738726"
+          },
+          "http://www.feedshark.brainbliss.com/ping/": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:45.331853"
+          },
+          "http://www.newsisfree.com/RPCCloud": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:45.887618"
+          },
+          "http://ping.blo.gs/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n   \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<",
+            "timestamp": "2025-08-18T08:45:46.495450"
+          },
+          "http://rpc.weblogs.com/RPC2": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rpc.weblogs.com', port=80): Max retries exceeded with url: /RPC2 (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317770c650>: Failed to resolve 'rpc.weblogs.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:45:47.510990"
+          },
+          "http://rcs.datashed.net/RPC2/": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rcs.datashed.net', port=80): Max retries exceeded with url: /RPC2/ (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317771c050>: Failed to resolve 'rcs.datashed.net' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:45:48.013985"
+          },
+          "http://www.weblogalot.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<!DOCTYPE html>\n<html data-adblockkey=\"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALquDFETXRn0Hr05fUP7EJT77xYnPmRbpMy4vk8KYiHnkNpednjOANJcaXDXcKQJN0nXKZJL7TciJD8AoHXK158CAwEAAQ==_tRHjidSPQuOa/bE1rFHPno4jkOXZjase",
+            "timestamp": "2025-08-18T08:45:48.625663"
+          },
+          "http://blo.gs/ping.php": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n   \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<",
+            "timestamp": "2025-08-18T08:45:49.185227"
+          },
+          "http://www.popdex.com/addsite": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:50.083422"
+          },
+          "http://www.blogdigger.com/RPC2": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:50.895154"
+          },
+          "http://www.blogstreet.com/xrbin/xmlrpc.cgi": {
+            "success": false,
+            "status_code": 405,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:51.656805"
+          },
+          "http://bulkpingtool.com/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='bulkpingtool.com', port=80): Max retries exceeded with url: /ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f3177746e50>: Failed to resolve 'bulkpingtool.com' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:45:52.171977"
+          },
+          "http://www.blogshares.com/rpc.php": {
+            "success": false,
+            "status_code": 429,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:53.003892"
+          },
+          "https://feedburner.google.com/fb/a/ping": {
+            "success": false,
+            "status_code": 400,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:53.527500"
+          },
+          "https://blogsearch.google.com/ping": {
+            "success": false,
+            "status_code": 405,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:54.094064"
+          },
+          "https://pubsubhubbub.appspot.com/publish": {
+            "success": false,
+            "status_code": 400,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:54.618484"
+          }
+        },
+        "news": {
+          "http://pingomatic.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "\n\nNo blog URL?",
+            "timestamp": "2025-08-18T08:45:55.245089"
+          },
+          "http://www.feedsubmitter.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<!DOCTYPE html>\n<html data-adblockkey=\"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALquDFETXRn0Hr05fUP7EJT77xYnPmRbpMy4vk8KYiHnkNpednjOANJcaXDXcKQJN0nXKZJL7TciJD8AoHXK158CAwEAAQ==_eGzDT1qmd2czP/o/tgmqZT/lPbXDGMGs",
+            "timestamp": "2025-08-18T08:45:55.873253"
+          },
+          "http://www.pingler.com/ping/": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:57.121522"
+          },
+          "http://www.blogpeople.net/ping/": {
+            "success": false,
+            "status_code": 500,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:58.687912"
+          },
+          "http://rpc.technorati.com/rpc/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rpc.technorati.com', port=80): Max retries exceeded with url: /rpc/ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317772a210>: Failed to resolve 'rpc.technorati.com' ([Errno -5] No address associated with hostname)\"))",
+            "timestamp": "2025-08-18T08:45:59.192499"
+          },
+          "http://www.blogflux.com/ping/": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:45:59.863959"
+          },
+          "http://www.syndic8.com/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='www.syndic8.com', port=80): Max retries exceeded with url: /ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f3177728410>: Failed to resolve 'www.syndic8.com' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:46:00.367691"
+          },
+          "http://xping.pubsub.com/ping/": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='xping.pubsub.com', port=80): Max retries exceeded with url: /ping/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f317d0f8310>: Failed to establish a new connection: [Errno 111] Connection refused'))",
+            "timestamp": "2025-08-18T08:46:00.870562"
+          },
+          "http://www.feedshark.brainbliss.com/ping/": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:01.478394"
+          },
+          "http://www.newsisfree.com/RPCCloud": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:02.030465"
+          },
+          "http://ping.blo.gs/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n   \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<",
+            "timestamp": "2025-08-18T08:46:02.635468"
+          },
+          "http://rpc.weblogs.com/RPC2": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rpc.weblogs.com', port=80): Max retries exceeded with url: /RPC2 (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f3177711510>: Failed to resolve 'rpc.weblogs.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:46:03.684243"
+          },
+          "http://rcs.datashed.net/RPC2/": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rcs.datashed.net', port=80): Max retries exceeded with url: /RPC2/ (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317d0fbd10>: Failed to resolve 'rcs.datashed.net' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:46:04.248918"
+          },
+          "http://www.weblogalot.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<!DOCTYPE html>\n<html data-adblockkey=\"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALquDFETXRn0Hr05fUP7EJT77xYnPmRbpMy4vk8KYiHnkNpednjOANJcaXDXcKQJN0nXKZJL7TciJD8AoHXK158CAwEAAQ==_tRHjidSPQuOa/bE1rFHPno4jkOXZjase",
+            "timestamp": "2025-08-18T08:46:04.872039"
+          },
+          "http://blo.gs/ping.php": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n   \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<",
+            "timestamp": "2025-08-18T08:46:05.419048"
+          },
+          "http://www.popdex.com/addsite": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:06.241950"
+          },
+          "http://www.blogdigger.com/RPC2": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:06.950575"
+          },
+          "http://www.blogstreet.com/xrbin/xmlrpc.cgi": {
+            "success": false,
+            "status_code": 405,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:07.708804"
+          },
+          "http://bulkpingtool.com/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='bulkpingtool.com', port=80): Max retries exceeded with url: /ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317d099390>: Failed to resolve 'bulkpingtool.com' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:46:08.323200"
+          },
+          "http://www.blogshares.com/rpc.php": {
+            "success": false,
+            "status_code": 429,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:09.167200"
+          },
+          "https://feedburner.google.com/fb/a/ping": {
+            "success": false,
+            "status_code": 400,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:09.688003"
+          },
+          "https://blogsearch.google.com/ping": {
+            "success": false,
+            "status_code": 405,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:10.253059"
+          },
+          "https://pubsubhubbub.appspot.com/publish": {
+            "success": false,
+            "status_code": 400,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:10.783860"
+          }
+        },
+        "blog": {
+          "http://pingomatic.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "\n\nNo blog URL?",
+            "timestamp": "2025-08-18T08:46:11.398377"
+          },
+          "http://www.feedsubmitter.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<!DOCTYPE html>\n<html data-adblockkey=\"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALquDFETXRn0Hr05fUP7EJT77xYnPmRbpMy4vk8KYiHnkNpednjOANJcaXDXcKQJN0nXKZJL7TciJD8AoHXK158CAwEAAQ==_eGzDT1qmd2czP/o/tgmqZT/lPbXDGMGs",
+            "timestamp": "2025-08-18T08:46:12.041207"
+          },
+          "http://www.pingler.com/ping/": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:14.091956"
+          },
+          "http://www.blogpeople.net/ping/": {
+            "success": false,
+            "status_code": 500,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:16.171293"
+          },
+          "http://rpc.technorati.com/rpc/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rpc.technorati.com', port=80): Max retries exceeded with url: /rpc/ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f3177729a10>: Failed to resolve 'rpc.technorati.com' ([Errno -5] No address associated with hostname)\"))",
+            "timestamp": "2025-08-18T08:46:16.674480"
+          },
+          "http://www.blogflux.com/ping/": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:17.352460"
+          },
+          "http://www.syndic8.com/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='www.syndic8.com', port=80): Max retries exceeded with url: /ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317d08b950>: Failed to resolve 'www.syndic8.com' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:46:17.879233"
+          },
+          "http://xping.pubsub.com/ping/": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='xping.pubsub.com', port=80): Max retries exceeded with url: /ping/ (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f3177712c50>: Failed to establish a new connection: [Errno 111] Connection refused'))",
+            "timestamp": "2025-08-18T08:46:18.382354"
+          },
+          "http://www.feedshark.brainbliss.com/ping/": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:18.974231"
+          },
+          "http://www.newsisfree.com/RPCCloud": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:19.527851"
+          },
+          "http://ping.blo.gs/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n   \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<",
+            "timestamp": "2025-08-18T08:46:20.286314"
+          },
+          "http://rpc.weblogs.com/RPC2": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rpc.weblogs.com', port=80): Max retries exceeded with url: /RPC2 (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f31777138d0>: Failed to resolve 'rpc.weblogs.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:46:21.320665"
+          },
+          "http://rcs.datashed.net/RPC2/": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='rcs.datashed.net', port=80): Max retries exceeded with url: /RPC2/ (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f3177747390>: Failed to resolve 'rcs.datashed.net' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:46:21.823686"
+          },
+          "http://www.weblogalot.com/ping/": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<!DOCTYPE html>\n<html data-adblockkey=\"MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALquDFETXRn0Hr05fUP7EJT77xYnPmRbpMy4vk8KYiHnkNpednjOANJcaXDXcKQJN0nXKZJL7TciJD8AoHXK158CAwEAAQ==_tRHjidSPQuOa/bE1rFHPno4jkOXZjase",
+            "timestamp": "2025-08-18T08:46:22.447863"
+          },
+          "http://blo.gs/ping.php": {
+            "success": true,
+            "status_code": 200,
+            "response_text": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1//EN\"\n   \"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\">\n<",
+            "timestamp": "2025-08-18T08:46:22.998446"
+          },
+          "http://www.popdex.com/addsite": {
+            "success": false,
+            "status_code": 404,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:23.774503"
+          },
+          "http://www.blogdigger.com/RPC2": {
+            "success": false,
+            "status_code": 403,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:24.585523"
+          },
+          "http://www.blogstreet.com/xrbin/xmlrpc.cgi": {
+            "success": false,
+            "status_code": 405,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:25.349461"
+          },
+          "http://bulkpingtool.com/ping": {
+            "success": false,
+            "error": "HTTPConnectionPool(host='bulkpingtool.com', port=80): Max retries exceeded with url: /ping (Caused by NameResolutionError(\"<urllib3.connection.HTTPConnection object at 0x7f317771ce50>: Failed to resolve 'bulkpingtool.com' ([Errno -2] Name or service not known)\"))",
+            "timestamp": "2025-08-18T08:46:25.865230"
+          },
+          "http://www.blogshares.com/rpc.php": {
+            "success": false,
+            "status_code": 429,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:26.699926"
+          },
+          "https://feedburner.google.com/fb/a/ping": {
+            "success": false,
+            "status_code": 400,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:27.219289"
+          },
+          "https://blogsearch.google.com/ping": {
+            "success": false,
+            "status_code": 405,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:27.788262"
+          },
+          "https://pubsubhubbub.appspot.com/publish": {
+            "success": false,
+            "status_code": 400,
+            "response_text": null,
+            "timestamp": "2025-08-18T08:46:28.310649"
+          }
+        }
+      },
+      "sitemap_pings": {
+        "google": {
+          "success": false,
+          "status_code": 404,
+          "ping_url": "https://www.google.com/ping?sitemap=http://localhost:5000/sitemaps/sitemap_campaign_20250818_084503_20250818_084628.xml",
+          "timestamp": "2025-08-18T08:46:29.011667"
+        },
+        "bing": {
+          "success": false,
+          "status_code": 410,
+          "ping_url": "https://www.bing.com/webmaster/ping.aspx?siteMap=http://localhost:5000/sitemaps/sitemap_campaign_20250818_084503_20250818_084628.xml",
+          "timestamp": "2025-08-18T08:46:30.061600"
+        },
+        "yandex": {
+          "success": true,
+          "status_code": 200,
+          "ping_url": "https://webmaster.yandex.com/ping?sitemap=http://localhost:5000/sitemaps/sitemap_campaign_20250818_084503_20250818_084628.xml",
+          "timestamp": "2025-08-18T08:46:31.898975"
+        },
+        "baidu": {
+          "success": true,
+          "status_code": 200,
+          "ping_url": "https://www.baidu.com/s?wd=http://localhost:5000/sitemaps/sitemap_campaign_20250818_084503_20250818_084628.xml",
+          "timestamp": "2025-08-18T08:46:34.857687"
+        },
+        "duckduckgo": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='duckduckgo.com', port=443): Max retries exceeded with url: /ping?sitemap=http://localhost:5000/sitemaps/sitemap_campaign_20250818_084503_20250818_084628.xml (Caused by ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x7f317d0fb810>, 'Connection to duckduckgo.com timed out. (connect timeout=15)'))",
+          "timestamp": "2025-08-18T08:46:50.876415"
+        }
+      },
+      "archive_saves": {
+        "https://keylinkbh.com/dependent-visas-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:47:22.013772"
+        },
+        "https://keylinkbh.com/document-clearance-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:48:11.358527"
+        },
+        "https://keylinkbh.com/family-visa-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:49:00.792877"
+        },
+        "https://keylinkbh.com/financial-and-tax-benefits-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:49:49.890493"
+        },
+        "https://keylinkbh.com/foreign-company-branch-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:50:39.129518"
+        },
+        "https://keylinkbh.com/free-zones-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:51:28.149701"
+        },
+        "https://keylinkbh.com/golden-visa-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:52:17.052521"
+        },
+        "https://keylinkbh.com/how-to-start-a-business-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:53:06.101574"
+        },
+        "https://keylinkbh.com/explore-lucrative-investment-opportunities-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:53:55.074495"
+        },
+        "https://keylinkbh.com/investor-visa-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:54:43.942477"
+        },
+        "https://keylinkbh.com/labour-registration-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:55:32.766247"
+        },
+        "https://keylinkbh.com/lease-contract-registration-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:56:21.543593"
+        },
+        "https://keylinkbh.com/license-renewal-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:57:10.381544"
+        },
+        "https://keylinkbh.com/local-sponsorship-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:57:59.259694"
+        },
+        "https://keylinkbh.com/marketing-agency-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:58:48.171497"
+        },
+        "https://keylinkbh.com/memorandum-of-association-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T08:59:37.105558"
+        },
+        "https://keylinkbh.com/professional-visa-consultants-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T09:00:26.236636"
+        },
+        "https://keylinkbh.com/single-person-company-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T09:01:15.026523"
+        },
+        "https://keylinkbh.com/starting-a-business-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T09:02:03.903717"
+        },
+        "https://keylinkbh.com/setting-up-a-company-in-bahrain/": {
+          "success": false,
+          "error": "HTTPSConnectionPool(host='web.archive.org', port=443): Read timed out. (read timeout=30)",
+          "timestamp": "2025-08-18T09:02:52.870433"
+        }
+      },
+      "directory_submissions": {
+        "https://keylinkbh.com/dependent-visas-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317d09fd10>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:47:22.261206"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:47:24.393933"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317d0f2790>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:47:26.570509"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:47:28.700044"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:47:30.827162"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:47:33.383088"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:47:36.089923"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:47:38.220106"
+          }
+        },
+        "https://keylinkbh.com/document-clearance-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f31777473d0>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:48:11.700825"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:48:13.837884"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317771dc50>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:48:15.990749"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:48:18.159947"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:48:20.289591"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:48:23.022224"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:48:25.569339"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:48:27.655211"
+          }
+        },
+        "https://keylinkbh.com/family-visa-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f3177745a90>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:49:01.037777"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:49:03.127593"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317771e3d0>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:49:05.257232"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:49:07.370707"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:49:09.490600"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:49:12.116503"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:49:14.613854"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:49:16.752498"
+          }
+        },
+        "https://keylinkbh.com/financial-and-tax-benefits-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317775ac90>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:49:50.156007"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:49:52.263795"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317d09ae50>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:49:54.403440"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:49:56.510754"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:49:58.622273"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:50:01.201436"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:50:03.857823"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:50:05.990503"
+          }
+        },
+        "https://keylinkbh.com/foreign-company-branch-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317d0bc8d0>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:50:39.397989"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:50:41.492595"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317771c110>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:50:43.610236"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:50:45.745267"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:50:47.888896"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:50:50.320426"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:50:52.929564"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:50:55.011543"
+          }
+        },
+        "https://keylinkbh.com/free-zones-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317773e410>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:51:28.394305"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:51:30.612550"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f31777228d0>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:51:32.730269"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:51:34.878402"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:51:36.993390"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:51:39.370441"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:51:41.832669"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:51:43.912477"
+          }
+        },
+        "https://keylinkbh.com/golden-visa-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f3177723bd0>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:52:17.321762"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:52:19.417787"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317771e050>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:52:21.536714"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:52:23.657462"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:52:25.765300"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:52:28.207728"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:52:30.824410"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:52:32.964629"
+          }
+        },
+        "https://keylinkbh.com/how-to-start-a-business-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f3177759a10>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:53:06.370909"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:53:08.486988"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317773c250>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:53:10.604823"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:53:12.710071"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:53:14.821578"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:53:17.289059"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:53:19.801138"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:53:21.939416"
+          }
+        },
+        "https://keylinkbh.com/explore-lucrative-investment-opportunities-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317774de10>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:53:55.340808"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:53:57.448785"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317d0f21d0>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:53:59.564309"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:54:01.677574"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:54:03.795204"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:54:06.226458"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:54:08.710909"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:54:10.800197"
+          }
+        },
+        "https://keylinkbh.com/investor-visa-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f3177758710>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:54:44.185467"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:54:46.293451"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f3177723110>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:54:48.411999"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:54:50.530147"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:54:52.654391"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:54:55.078086"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:54:57.546651"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:54:59.625244"
+          }
+        },
+        "https://keylinkbh.com/labour-registration-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f3177725310>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:55:33.011512"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:55:35.133984"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317775a990>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:55:37.258018"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:55:39.367242"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:55:41.468604"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:55:43.837221"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:55:46.318930"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:55:48.404616"
+          }
+        },
+        "https://keylinkbh.com/lease-contract-registration-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317774ff50>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:56:21.810697"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:56:23.907724"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f3177726050>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:56:26.042355"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:56:28.145414"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:56:30.259589"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:56:32.694895"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:56:35.157333"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:56:37.243815"
+          }
+        },
+        "https://keylinkbh.com/license-renewal-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317d09fe90>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:57:10.676414"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:57:12.795885"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317775b650>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:57:14.914049"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:57:17.022079"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:57:19.139674"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:57:21.555175"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:57:24.033157"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:57:26.122734"
+          }
+        },
+        "https://keylinkbh.com/local-sponsorship-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f3177727350>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:57:59.550159"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:58:01.642283"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f3177759250>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:58:03.760239"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:58:05.892900"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:58:08.008192"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:58:10.452000"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:58:12.952124"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:58:15.031014"
+          }
+        },
+        "https://keylinkbh.com/marketing-agency-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f3177744810>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:58:48.440404"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:58:50.534049"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f3177727a10>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:58:52.651123"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:58:54.777218"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:58:56.885558"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:58:59.381921"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:59:01.881788"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:59:03.967361"
+          }
+        },
+        "https://keylinkbh.com/memorandum-of-association-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f3177726f10>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:59:37.488733"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:59:39.585023"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317773ced0>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T08:59:41.702360"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:59:43.822799"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:59:45.952146"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:59:48.519535"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T08:59:51.021624"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T08:59:53.099644"
+          }
+        },
+        "https://keylinkbh.com/professional-visa-consultants-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f31777465d0>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T09:00:26.480541"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T09:00:28.591395"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317d0990d0>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T09:00:30.708954"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T09:00:32.815052"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T09:00:34.918682"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T09:00:37.319781"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T09:00:39.803126"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T09:00:41.885787"
+          }
+        },
+        "https://keylinkbh.com/single-person-company-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317d09ac50>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T09:01:15.315795"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T09:01:17.423871"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f3177724750>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T09:01:19.541768"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T09:01:21.712103"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T09:01:23.832358"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T09:01:26.203786"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T09:01:28.673604"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T09:01:30.766524"
+          }
+        },
+        "https://keylinkbh.com/starting-a-business-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317773dad0>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T09:02:04.172538"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T09:02:06.276136"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f317ee11d10>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T09:02:08.393142"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T09:02:10.505810"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T09:02:12.627240"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T09:02:15.188082"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T09:02:17.650469"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T09:02:19.730268"
+          }
+        },
+        "https://keylinkbh.com/setting-up-a-company-in-bahrain/": {
+          "https://www.dmoz-odp.org/public/suggest": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.dmoz-odp.org', port=443): Max retries exceeded with url: /public/suggest (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f3177745b50>: Failed to resolve 'www.dmoz-odp.org' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T09:02:53.112412"
+          },
+          "https://www.jayde.com/add_url.html": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T09:02:55.220810"
+          },
+          "https://www.exorank.com/addurl.php": {
+            "success": false,
+            "error": "HTTPSConnectionPool(host='www.exorank.com', port=443): Max retries exceeded with url: /addurl.php (Caused by NameResolutionError(\"<urllib3.connection.HTTPSConnection object at 0x7f31777240d0>: Failed to resolve 'www.exorank.com' ([Errno -3] Temporary failure in name resolution)\"))",
+            "timestamp": "2025-08-18T09:02:57.337580"
+          },
+          "https://www.freewebsubmission.com/submit-url/": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T09:02:59.443792"
+          },
+          "https://www.exactseek.com/add.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T09:03:01.558798"
+          },
+          "https://www.scrubtheweb.com/addurl.html": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T09:03:04.041338"
+          },
+          "https://www.gainweb.org/addurl.php": {
+            "success": false,
+            "status_code": 404,
+            "timestamp": "2025-08-18T09:03:06.514952"
+          },
+          "https://www.9sites.net/addurl.php": {
+            "success": true,
+            "status_code": 200,
+            "timestamp": "2025-08-18T09:03:08.593573"
+          }
+        }
+      }
+    },
+    "last_updated": "2025-08-18T09:03:11.594301"
+  }
+}

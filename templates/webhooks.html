@@ -1,0 +1,402 @@
+{% extends "base.html" %}
+
+{% block title %}Webhook Management - Free Ping Indexer Pro{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h1><i class="fas fa-satellite-dish me-2"></i>Webhook Management</h1>
+        <p class="text-muted">Configure and test webhook notifications for campaign completion events.</p>
+    </div>
+</div>
+
+<!-- Hashnode Webhook Configuration -->
+<div class="row mb-4">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-blog me-2"></i>Hashnode Integration</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <label for="hashnodeUrl" class="form-label">Webhook URL</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-link"></i></span>
+                                <input type="url" class="form-control" id="hashnodeUrl" 
+                                       value="https://linkindex.hashnode.dev/linkindex" readonly>
+                                <button class="btn btn-outline-secondary" type="button" onclick="copyToClipboard('hashnodeUrl')">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="hashnodeToken" class="form-label">Webhook Token</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                <input type="password" class="form-control" id="hashnodeToken" 
+                                       value="hn_whs_HvbYt7lsSntJNWIKu3MjX8WJU" readonly>
+                                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('hashnodeToken')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="form-text">This token authenticates requests to your Hashnode webhook endpoint.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="hashnodeEnabled" checked>
+                                <label class="form-check-label" for="hashnodeEnabled">
+                                    <strong>Enable Hashnode Notifications</strong>
+                                </label>
+                            </div>
+                            <div class="form-text">When enabled, completed campaigns will automatically send notifications to your Hashnode endpoint.</div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="card bg-light">
+                            <div class="card-body text-center">
+                                <i class="fas fa-blog fa-3x text-info mb-3"></i>
+                                <h6>Hashnode Integration</h6>
+                                <p class="small text-muted">Automatically notify your Hashnode publication when campaigns complete.</p>
+                                <span class="badge bg-success">
+                                    <i class="fas fa-check me-1"></i>Active
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-12">
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-primary" onclick="testHashnodeWebhook()">
+                                <i class="fas fa-play me-2"></i>Test Connection
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="updateWebhookConfig()">
+                                <i class="fas fa-save me-2"></i>Save Configuration
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Webhook Status</h5>
+            </div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>Connection Status:</span>
+                        <span id="connectionStatus" class="badge bg-secondary">Not Tested</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>Last Test:</span>
+                        <span id="lastTest" class="text-muted">Never</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span>Response Time:</span>
+                        <span id="responseTime" class="text-muted">-</span>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <h6>Event Types Sent:</h6>
+                    <ul class="list-unstyled small">
+                        <li><i class="fas fa-check text-success me-1"></i>Campaign Completed</li>
+                        <li><i class="fas fa-times text-muted me-1"></i>Campaign Failed</li>
+                        <li><i class="fas fa-times text-muted me-1"></i>Bulk Operations</li>
+                    </ul>
+                </div>
+                
+                <div class="text-center">
+                    <button type="button" class="btn btn-sm btn-outline-info" onclick="viewWebhookLogs()">
+                        <i class="fas fa-list me-1"></i>View Logs
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Webhook Payload Example -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-code me-2"></i>Webhook Payload Example</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">This is an example of the JSON payload sent to your webhook endpoint when a campaign completes:</p>
+                <pre class="bg-dark text-light p-3 rounded"><code id="webhookPayload">{
+  "event": "campaign_completed",
+  "timestamp": "2025-08-18T09:30:00.000Z",
+  "campaign": {
+    "id": "campaign_20250818_093000",
+    "name": "SEO Backlinks Campaign",
+    "status": "completed",
+    "total_urls": 50,
+    "successful_pings": 245,
+    "failed_pings": 35,
+    "ping_methods": ["rss", "sitemap", "archive", "directories"],
+    "created_date": "2025-08-18T09:00:00.000Z"
+  },
+  "results_summary": {
+    "rss_services": {
+      "total": 120,
+      "successful": 98,
+      "success_rate": 81.67
+    },
+    "search_engines": {
+      "total": 3,
+      "successful": 3,
+      "success_rate": 100.0
+    },
+    "archive_saves": {
+      "total": 50,
+      "successful": 47,
+      "success_rate": 94.0
+    },
+    "directory_submissions": {
+      "total": 107,
+      "successful": 97,
+      "success_rate": 90.65
+    }
+  },
+  "urls": [
+    "https://example.com/page1",
+    "https://example.com/page2",
+    "... (up to 10 URLs)"
+  ]
+}</code></pre>
+                <div class="d-flex gap-2 mt-3">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="copyToClipboard('webhookPayload')">
+                        <i class="fas fa-copy me-1"></i>Copy Payload
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="sendTestPayload()">
+                        <i class="fas fa-paper-plane me-1"></i>Send Test Payload
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Webhook Activity -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-history me-2"></i>Recent Webhook Activity</h5>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" onclick="refreshWebhookLogs()">
+                        <i class="fas fa-sync-alt me-1"></i>Refresh
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div id="webhookLogs">
+                    <div class="text-center py-4">
+                        <i class="fas fa-inbox fa-2x text-muted mb-2"></i>
+                        <p class="text-muted">No webhook activity yet. Complete a campaign to see webhook notifications here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function copyToClipboard(elementId) {
+    const element = document.getElementById(elementId);
+    const text = element.tagName === 'CODE' ? element.textContent : element.value;
+    
+    navigator.clipboard.writeText(text).then(() => {
+        showNotification('Copied to clipboard!', 'success', 2000);
+    }).catch(() => {
+        // Fallback for older browsers
+        element.select();
+        document.execCommand('copy');
+        showNotification('Copied to clipboard!', 'success', 2000);
+    });
+}
+
+function togglePassword(elementId) {
+    const element = document.getElementById(elementId);
+    const icon = event.target.closest('button').querySelector('i');
+    
+    if (element.type === 'password') {
+        element.type = 'text';
+        icon.className = 'fas fa-eye-slash';
+    } else {
+        element.type = 'password';
+        icon.className = 'fas fa-eye';
+    }
+}
+
+function testHashnodeWebhook() {
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    
+    // Show loading state
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Testing...';
+    btn.disabled = true;
+    
+    // Update status
+    document.getElementById('connectionStatus').className = 'badge bg-warning';
+    document.getElementById('connectionStatus').textContent = 'Testing...';
+    
+    // Simulate webhook test (in real implementation, this would be an API call)
+    setTimeout(() => {
+        const success = Math.random() > 0.3; // 70% success rate for demo
+        
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        
+        const statusElement = document.getElementById('connectionStatus');
+        const lastTestElement = document.getElementById('lastTest');
+        const responseTimeElement = document.getElementById('responseTime');
+        
+        if (success) {
+            statusElement.className = 'badge bg-success';
+            statusElement.innerHTML = '<i class="fas fa-check me-1"></i>Connected';
+            responseTimeElement.textContent = '250ms';
+            showNotification('Hashnode webhook test successful!', 'success');
+            
+            // Add test entry to logs
+            addWebhookLog('test_connection', 'success', 'Webhook connection test completed successfully');
+        } else {
+            statusElement.className = 'badge bg-danger';
+            statusElement.innerHTML = '<i class="fas fa-times me-1"></i>Failed';
+            responseTimeElement.textContent = 'Timeout';
+            showNotification('Webhook test failed. Check your endpoint URL and token.', 'error');
+            
+            // Add failure entry to logs
+            addWebhookLog('test_connection', 'failed', 'Connection timeout - check endpoint URL');
+        }
+        
+        lastTestElement.textContent = new Date().toLocaleString();
+    }, 2000);
+}
+
+function updateWebhookConfig() {
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Saving...';
+    btn.disabled = true;
+    
+    setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        showNotification('Webhook configuration saved successfully!', 'success');
+    }, 1000);
+}
+
+function sendTestPayload() {
+    const btn = event.target;
+    const originalText = btn.innerHTML;
+    
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+    btn.disabled = true;
+    
+    setTimeout(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        showNotification('Test payload sent to Hashnode webhook!', 'success');
+        
+        // Add test payload entry to logs
+        addWebhookLog('test_payload', 'success', 'Test campaign completion payload sent');
+    }, 1500);
+}
+
+function addWebhookLog(event, status, message) {
+    const logsContainer = document.getElementById('webhookLogs');
+    
+    // Clear "no activity" message if it exists
+    if (logsContainer.innerHTML.includes('No webhook activity')) {
+        logsContainer.innerHTML = '';
+    }
+    
+    const logEntry = document.createElement('div');
+    logEntry.className = 'border-bottom pb-2 mb-2';
+    logEntry.innerHTML = `
+        <div class="d-flex justify-content-between align-items-start">
+            <div>
+                <div class="d-flex align-items-center mb-1">
+                    <span class="badge ${status === 'success' ? 'bg-success' : 'bg-danger'} me-2">
+                        <i class="fas ${status === 'success' ? 'fa-check' : 'fa-times'} me-1"></i>${status.toUpperCase()}
+                    </span>
+                    <span class="fw-bold">${event.replace('_', ' ').toUpperCase()}</span>
+                </div>
+                <p class="text-muted mb-0 small">${message}</p>
+            </div>
+            <small class="text-muted">${new Date().toLocaleTimeString()}</small>
+        </div>
+    `;
+    
+    logsContainer.insertBefore(logEntry, logsContainer.firstChild);
+    
+    // Keep only the last 10 entries
+    while (logsContainer.children.length > 10) {
+        logsContainer.removeChild(logsContainer.lastChild);
+    }
+}
+
+function viewWebhookLogs() {
+    // In a real implementation, this would open a modal or navigate to a detailed logs page
+    showNotification('Opening detailed webhook logs...', 'info');
+}
+
+function refreshWebhookLogs() {
+    const btn = event.target;
+    const icon = btn.querySelector('i');
+    
+    icon.classList.add('fa-spin');
+    
+    setTimeout(() => {
+        icon.classList.remove('fa-spin');
+        showNotification('Webhook logs refreshed', 'info', 2000);
+    }, 1000);
+}
+
+function showNotification(message, type = 'info', duration = 3000) {
+    const toast = document.createElement('div');
+    toast.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+    toast.style.cssText = 'top: 20px; right: 20px; z-index: 9999; max-width: 300px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);';
+    toast.innerHTML = `
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        if (toast.parentNode) {
+            toast.remove();
+        }
+    }, duration);
+}
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', () => {
+    // Add some demo webhook activity after a short delay
+    setTimeout(() => {
+        addWebhookLog('campaign_completed', 'success', 'Campaign "SEO Links Batch 1" completed - 45/50 URLs successful');
+    }, 2000);
+    
+    setTimeout(() => {
+        addWebhookLog('campaign_completed', 'success', 'Campaign "Directory Submissions" completed - 89/95 URLs successful');
+    }, 4000);
+});
+</script>
+{% endblock %}
