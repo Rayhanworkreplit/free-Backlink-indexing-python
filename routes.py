@@ -681,3 +681,13 @@ def live_progress():
         logger.error(f"Error loading live progress page: {str(e)}")
         flash(f"Error loading page: {str(e)}", 'error')
         return redirect(url_for('index'))
+
+@app.route('/simple-progress-test')
+def simple_progress_test():
+    """Simple progress test page"""
+    try:
+        return render_template('simple_progress_test.html')
+    except Exception as e:
+        logger.error(f"Error loading simple progress test page: {str(e)}")
+        flash(f"Error loading page: {str(e)}", 'error')
+        return redirect(url_for('index'))

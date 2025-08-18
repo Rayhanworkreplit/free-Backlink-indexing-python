@@ -1,1 +1,24 @@
-{}
+{
+  "campaign_20250818_134941": {
+    "id": "campaign_20250818_134941",
+    "name": "keylink document clearance ",
+    "urls": [
+      "https://nelsondrsc279292.pointblog.net/document-clearance-bahrain-professional-services-guide-83352216"
+    ],
+    "invalid_urls": [],
+    "ping_methods": [
+      "rss",
+      "sitemap",
+      "archive",
+      "directories"
+    ],
+    "status": "processing",
+    "created_date": "2025-08-18T13:49:41.361355",
+    "total_urls": 1,
+    "processed_urls": 0,
+    "successful_pings": 0,
+    "failed_pings": 0,
+    "results": {},
+    "last_updated": "2025-08-18T13:49:41.363040"
+  }
+}

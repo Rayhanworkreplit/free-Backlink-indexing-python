@@ -216,7 +216,7 @@ class LiveProgressDemo {
                 html += `
                     <div class="d-flex justify-content-between mb-2">
                         <span>${category.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}</span>
-                        <badge class="badge bg-primary">${count}</badge>
+                        <span class="badge bg-primary">${count}</span>
                     </div>
                 `;
             }
@@ -408,7 +408,7 @@ class LiveProgressDemo {
                     </div>
 
                     <div class="text-center mt-3">
-                        <button class="btn btn-warning" onclick="this.stopDemo()">
+                        <button class="btn btn-warning" onclick="window.liveProgressDemo.stopDemo()">
                             <i class="fas fa-stop me-2"></i>Stop Demo
                         </button>
                     </div>
