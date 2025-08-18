@@ -23,12 +23,22 @@ class PingServices:
         try:
             with open('ping_lists/rss_services.json', 'r') as f:
                 rss_data = json.load(f)
-                # Flatten categorized structure for backward compatibility
+                # Load all categories including the new ones
                 self.rss_services = {
                     'google_services': rss_data.get('google_services', []),
                     'global_rss': rss_data.get('global_rss', []),
                     'regional_services': rss_data.get('regional_services', []),
-                    'validation_services': rss_data.get('validation_services', [])
+                    'validation_services': rss_data.get('validation_services', []),
+                    'modern_ping_services': rss_data.get('modern_ping_services', []),
+                    'seo_tools': rss_data.get('seo_tools', []),
+                    'bulk_ping': rss_data.get('bulk_ping', []),
+                    'developer_tools': rss_data.get('developer_tools', []),
+                    'blog_ping': rss_data.get('blog_ping', []),
+                    'hosting_tools': rss_data.get('hosting_tools', []),
+                    'google_tools': rss_data.get('google_tools', []),
+                    'indexing_tools': rss_data.get('indexing_tools', []),
+                    'directory_submission': rss_data.get('directory_submission', []),
+                    'traditional_ping': rss_data.get('traditional_ping', [])
                 }
         except Exception as e:
             logger.error(f"Failed to load RSS services: {e}")

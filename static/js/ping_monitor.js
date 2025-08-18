@@ -110,7 +110,7 @@ class PingMonitor {
         }
 
         // Add pulsing effect to processing badges
-        if (statusBadge && statusBadge.textContent.includes('Processing')) {
+        if (statusBadge && statusBadge.textContent && statusBadge.textContent.includes('Processing')) {
             statusBadge.classList.add('ping-pulse');
         }
     }
@@ -250,7 +250,7 @@ class PingMonitor {
 
         // Update status badge
         const statusBadge = campaignRow.querySelector('.badge');
-        if (statusBadge) {
+        if (statusBadge && statusBadge.classList) {
             statusBadge.textContent = data.status;
             statusBadge.className = `badge bg-${this.getStatusColor(data.status)}`;
         }

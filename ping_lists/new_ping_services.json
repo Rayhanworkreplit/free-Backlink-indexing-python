@@ -1,0 +1,312 @@
+{
+  "new_ping_services": [
+    {
+      "name": "PingSite.io",
+      "url": "https://pingsite.io",
+      "category": "modern_ping",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Pingerati",
+      "url": "https://pingerati.net",
+      "category": "modern_ping",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Bulkping",
+      "url": "https://www.bulkping.com/",
+      "category": "bulk_ping",
+      "method": "POST",
+      "timeout": 15
+    },
+    {
+      "name": "PingMyURL",
+      "url": "https://pingmyurl.com/",
+      "category": "modern_ping",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "PingFarm",
+      "url": "http://pingfarm.com/",
+      "category": "traditional_ping",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "TotalPing",
+      "url": "https://totalping.com/",
+      "category": "modern_ping",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "PingMyLinks",
+      "url": "https://www.pingmylinks.com/",
+      "category": "modern_ping",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "DupliChecker SEO Ping",
+      "url": "https://www.duplichecker.com/search-engine-pinging-website-tool.php",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 15
+    },
+    {
+      "name": "Pre Post SEO Ping",
+      "url": "https://www.prepostseo.com/ping-multiple-urls-online",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 15
+    },
+    {
+      "name": "Search Engine Reports Ping",
+      "url": "https://searchenginereports.net/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 15
+    },
+    {
+      "name": "Ping Twingly",
+      "url": "https://ping.twingly.com/",
+      "category": "blog_ping",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Index Kings",
+      "url": "http://indexkings.com/",
+      "category": "indexing_tools",
+      "method": "POST",
+      "timeout": 15
+    },
+    {
+      "name": "AppyPie Ping",
+      "url": "https://www.appypie.com/tools/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "HostNamaste Ping",
+      "url": "https://www.hostnamaste.com/seo-tools/en/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Small SEO Tools Ping",
+      "url": "https://smallseotools.com/online-ping-website-tool/",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 15
+    },
+    {
+      "name": "NimTools Ping",
+      "url": "https://nimtools.com/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "SEO Polarity Ping",
+      "url": "https://seopolarity.com/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "WebNots Ping",
+      "url": "https://www.webnots.com/seo-tools/ping-multiple-urls-online",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Ping My URL Alternative",
+      "url": "https://ping-my-url.net/",
+      "category": "modern_ping",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Saroj Meher Ping",
+      "url": "https://www.sarojmeher.com/seotools/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Dotcom Infoway Ping",
+      "url": "https://www.dotcominfoway.com/free-seo-tools/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Coder's Tool Ping",
+      "url": "https://www.coderstool.com/ping-website-url",
+      "category": "developer_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "IP Address Guide Ping",
+      "url": "https://www.ipaddressguide.com/ping",
+      "category": "network_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "GoogieHost Ping",
+      "url": "https://googiehost.com/tools/online-ping-website-tool",
+      "category": "hosting_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Coder Duck Ping as Google",
+      "url": "https://www.coderduck.com/ping-website-tool-fetch-as-google",
+      "category": "google_tools",
+      "method": "POST",
+      "timeout": 15
+    },
+    {
+      "name": "SevenBoats SEO Tools",
+      "url": "https://seotools.7boats.com/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Theseotools Ping",
+      "url": "https://theseotools.net/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "W3Era Ping",
+      "url": "https://www.w3era.com/tool/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Kwebby Ping",
+      "url": "https://kwebby.com/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "CODIXY Ping",
+      "url": "https://codixy.uk/seo-tools/en/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "ExciteSubmit",
+      "url": "https://www.excitesubmit.com/",
+      "category": "directory_submission",
+      "method": "POST",
+      "timeout": 15
+    },
+    {
+      "name": "SEO Toolkeg Ping",
+      "url": "https://www.seotoolkeg.com/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Ping.in",
+      "url": "https://ping.in/",
+      "category": "modern_ping",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "SEO Tools Checker",
+      "url": "https://seotoolcheckers.com/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Free SEO Tools Ping",
+      "url": "https://free-seo-tools.org/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Mass Ping WMTools",
+      "url": "https://wmtools.me/mass-ping",
+      "category": "bulk_ping",
+      "method": "POST",
+      "timeout": 15
+    },
+    {
+      "name": "UseMe Ping",
+      "url": "https://useme.org/",
+      "category": "traditional_ping",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Sites On Display",
+      "url": "https://www.sitesondisplay.com/add.html",
+      "category": "directory_submission",
+      "method": "POST",
+      "timeout": 15
+    },
+    {
+      "name": "SEO Toolzz",
+      "url": "https://seotoolzz.com/ping-website.php",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Simplified SEO Tools",
+      "url": "https://simplifiedseotools.com/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Kule Ping",
+      "url": "https://kuleping.com/index.php",
+      "category": "traditional_ping",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Cool SEO Tools",
+      "url": "https://www.coolseotools.com/ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Backlink Ping",
+      "url": "https://www.backlinkping.com/online-ping-website-tool",
+      "category": "seo_tools",
+      "method": "POST",
+      "timeout": 10
+    },
+    {
+      "name": "Ping My Domain",
+      "url": "https://pingmydomain.blogspot.com/",
+      "category": "blog_ping",
+      "method": "POST",
+      "timeout": 10
+    }
+  ]
+}

@@ -81,5 +81,69 @@
     "https://semanticsitemaps.org/submit?url=",
     "https://www.xml-sitemaps.com/ping.php?sitemap=",
     "https://www.technorati.com/ping.html?blog="
+  ],
+  "modern_ping_services": [
+    "https://pingsite.io",
+    "https://pingerati.net",
+    "https://pingmyurl.com/",
+    "https://totalping.com/",
+    "https://www.pingmylinks.com/",
+    "https://ping-my-url.net/",
+    "https://ping.in/"
+  ],
+  "seo_tools": [
+    "https://www.duplichecker.com/search-engine-pinging-website-tool.php",
+    "https://www.prepostseo.com/ping-multiple-urls-online",
+    "https://searchenginereports.net/online-ping-website-tool",
+    "https://www.appypie.com/tools/online-ping-website-tool",
+    "https://www.hostnamaste.com/seo-tools/en/online-ping-website-tool",
+    "https://smallseotools.com/online-ping-website-tool/",
+    "https://nimtools.com/online-ping-website-tool",
+    "https://seopolarity.com/online-ping-website-tool",
+    "https://www.webnots.com/seo-tools/ping-multiple-urls-online",
+    "https://www.sarojmeher.com/seotools/online-ping-website-tool",
+    "https://www.dotcominfoway.com/free-seo-tools/online-ping-website-tool",
+    "https://seotools.7boats.com/online-ping-website-tool",
+    "https://theseotools.net/online-ping-website-tool",
+    "https://www.w3era.com/tool/online-ping-website-tool",
+    "https://kwebby.com/online-ping-website-tool",
+    "https://codixy.uk/seo-tools/en/online-ping-website-tool",
+    "https://www.seotoolkeg.com/online-ping-website-tool",
+    "https://seotoolcheckers.com/online-ping-website-tool",
+    "https://free-seo-tools.org/online-ping-website-tool",
+    "https://seotoolzz.com/ping-website.php",
+    "https://simplifiedseotools.com/online-ping-website-tool",
+    "https://www.coolseotools.com/ping-website-tool",
+    "https://www.backlinkping.com/online-ping-website-tool"
+  ],
+  "bulk_ping": [
+    "https://www.bulkping.com/",
+    "https://wmtools.me/mass-ping"
+  ],
+  "developer_tools": [
+    "https://www.coderstool.com/ping-website-url",
+    "https://www.ipaddressguide.com/ping"
+  ],
+  "blog_ping": [
+    "https://ping.twingly.com/",
+    "https://pingmydomain.blogspot.com/"
+  ],
+  "hosting_tools": [
+    "https://googiehost.com/tools/online-ping-website-tool"
+  ],
+  "google_tools": [
+    "https://www.coderduck.com/ping-website-tool-fetch-as-google"
+  ],
+  "indexing_tools": [
+    "http://indexkings.com/"
+  ],
+  "directory_submission": [
+    "https://www.excitesubmit.com/",
+    "https://www.sitesondisplay.com/add.html"
+  ],
+  "traditional_ping": [
+    "http://pingfarm.com/",
+    "https://useme.org/",
+    "https://kuleping.com/index.php"
   ]
 }
