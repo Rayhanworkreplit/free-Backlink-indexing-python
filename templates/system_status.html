@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}System Status - Free Ping Indexer Pro{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1>System Status</h1>
+            <p class="lead">Real-time system health and service status monitoring.</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5><i class="fas fa-server me-2"></i>Service Status</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card border-success">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                                    <h5>Application Status</h5>
+                                    <span class="badge bg-success fs-6">Operational</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card border-info">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-network-wired fa-3x text-info mb-3"></i>
+                                    <h5>Ping Services</h5>
+                                    <span id="service-count" class="badge bg-info fs-6">Loading...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-chart-line me-2"></i>System Metrics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6>Active Campaigns</h6>
+                            <div class="h3 text-primary" id="active-campaigns">-</div>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>Total Services</h6>
+                            <div class="h3 text-success" id="total-services">-</div>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>Service Categories</h6>
+                            <div class="h3 text-info" id="service-categories">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-list me-2"></i>Service Categories</h5>
+                </div>
+                <div class="card-body">
+                    <div id="category-list">
+                        <div class="text-center">
+                            <div class="spinner-border"></div>
+                            <p class="mt-2">Loading categories...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5><i class="fas fa-clock me-2"></i>Recent Activity</h5>
+                </div>
+                <div class="card-body">
+                    <div id="recent-activity">
+                        <div class="text-muted">No recent activity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    loadSystemStatus();
+    loadActiveCampaigns();
+    
+    // Refresh every 30 seconds
+    setInterval(() => {
+        loadSystemStatus();
+        loadActiveCampaigns();
+    }, 30000);
+});
+
+async function loadSystemStatus() {
+    try {
+        const response = await fetch('/api/service-categories');
+        const data = await response.json();
+        
+        if (data.stats) {
+            document.getElementById('total-services').textContent = data.stats.total || 0;
+            document.getElementById('service-categories').textContent = data.categories ? data.categories.length : 0;
+            document.getElementById('service-count').textContent = `${data.stats.total} Services`;
+            
+            displayCategories(data.stats);
+        }
+    } catch (error) {
+        console.error('Error loading system status:', error);
+        document.getElementById('service-count').innerHTML = '<span class="badge bg-danger">Error</span>';
+    }
+}
+
+async function loadActiveCampaigns() {
+    try {
+        const response = await fetch('/api/active-campaigns');
+        const campaigns = await response.json();
+        
+        document.getElementById('active-campaigns').textContent = Object.keys(campaigns).length;
+        
+        displayRecentActivity(campaigns);
+    } catch (error) {
+        console.error('Error loading campaigns:', error);
+        document.getElementById('active-campaigns').textContent = 'Error';
+    }
+}
+
+function displayCategories(stats) {
+    const container = document.getElementById('category-list');
+    let html = '';
+    
+    for (const [category, count] of Object.entries(stats)) {
+        if (category !== 'total') {
+            const displayName = category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            html += `
+                <div class="d-flex justify-content-between align-items-center mb-2 p-2 rounded" style="background-color: rgba(0,123,255,0.1);">
+                    <span class="fw-medium">${displayName}</span>
+                    <span class="badge bg-primary">${count}</span>
+                </div>
+            `;
+        }
+    }
+    
+    container.innerHTML = html;
+}
+
+function displayRecentActivity(campaigns) {
+    const container = document.getElementById('recent-activity');
+    
+    if (Object.keys(campaigns).length === 0) {
+        container.innerHTML = '<div class="text-muted">No active campaigns</div>';
+        return;
+    }
+    
+    let html = '';
+    for (const [id, campaign] of Object.entries(campaigns)) {
+        const statusColor = campaign.status === 'running' ? 'primary' : 'success';
+        const statusIcon = campaign.status === 'running' ? 'fa-play' : 'fa-check';
+        
+        html += `
+            <div class="mb-2 p-2 rounded" style="background-color: rgba(0,0,0,0.05);">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <div class="fw-medium small">${id}</div>
+                        <div class="text-muted" style="font-size: 0.8rem;">${campaign.progress}% complete</div>
+                    </div>
+                    <i class="fas ${statusIcon} text-${statusColor}"></i>
+                </div>
+            </div>
+        `;
+    }
+    
+    container.innerHTML = html;
+}
+</script>
+{% endblock %}
