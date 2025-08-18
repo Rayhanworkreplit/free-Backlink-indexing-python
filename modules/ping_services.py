@@ -350,11 +350,12 @@ class PingServices:
         
         return results
     
-    def comprehensive_ping(self, urls, campaign_id=None, categories=None, include_archives=True, include_directories=True):
+    def comprehensive_ping(self, urls, campaign_id=None, categories=None, include_archives=True, include_directories=True, include_advanced=False):
         """Execute comprehensive ping strategy for URLs with flexible campaign control"""
         from modules.rss_generator import RSSGenerator
         from modules.sitemap_manager import SitemapManager
         from modules.archive_tools import ArchiveTools
+        from modules.advanced_indexing import AdvancedIndexingMethods
         
         results = {
             'campaign_id': campaign_id,
@@ -364,11 +365,13 @@ class PingServices:
             'sitemap_pings': {},
             'archive_saves': {},
             'directory_submissions': {},
+            'advanced_methods': {},
             'service_summary': {
                 'total_rss_services': 0,
                 'total_search_engines': 0,
                 'successful_pings': 0,
-                'failed_pings': 0
+                'failed_pings': 0,
+                'advanced_methods_used': 0
             }
         }
         
@@ -422,6 +425,14 @@ class PingServices:
                     
                     # Rate limiting between URLs
                     time.sleep(random.uniform(0.5, 1.5))
+            
+            # Advanced indexing methods (optional)
+            if include_advanced:
+                logger.info("Executing advanced indexing methods...")
+                advanced_indexer = AdvancedIndexingMethods()
+                advanced_results = advanced_indexer.comprehensive_advanced_indexing(urls, campaign_id)
+                results['advanced_methods'] = advanced_results
+                results['service_summary']['advanced_methods_used'] = 3  # heartbeat, crawling, podcast
             
         except Exception as e:
             logger.error(f"Comprehensive ping failed: {str(e)}")
